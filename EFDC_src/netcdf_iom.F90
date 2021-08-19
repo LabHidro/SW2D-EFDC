@@ -410,7 +410,7 @@ SUBROUTINE ASCII2NCF  !(NSNAPSHOTS,NVARS,LC_GLOBAL,ISSPH,ISPPH, &
     write(month_out, '(I2.2)') MREF
     write(day_out, '(I2.2)') DREF
 
-    FILE_OUT(TIMEFILE) = 'efdcout_'//trim(dstamp)//'00.nc'
+    FILE_OUT(TIMEFILE) = '../output/efdcout_'//trim(dstamp)//'00.nc'
 ! This implementation causes round off issues
 ! Introduce simpler time conversion that maintains a base of 2000-01-01
 ! and convert this to base of relevant year (2015 in this case)

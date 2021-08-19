@@ -332,10 +332,10 @@ C
 C ** RESET DXU,DYU,DXV,DYV BASED ON BOUNDARY CONDITION SWITCHES  
 C  
       DO L=2,LA  
-        IF(L==0)THEN
-          PRINT*,'SETBCS LINE 336; L=',L
+ !       IF(L==0)THEN
+ !         PRINT*,'SETBCS LINE 336; L=',L
  !         PAUSE
-        ENDIF
+ !       ENDIF
         LE=LEAST(L)
 !        IF(SUB(L).GT.0.5)THEN  
 !          DXU(L)=0.5*(DXP(L)+DXP(LWEST(L)))  
@@ -352,16 +352,16 @@ C
         ENDIF  
       ENDDO  
       DO L=2,LA  
-        IF(L==0)THEN
-            PRINT*,'SETBCS LINE 356; L=',L
+!        IF(L==0)THEN
+!            PRINT*,'SETBCS LINE 356; L=',L
 !            PAUSE
-        ENDIF
+!        ENDIF
         LN=LNC(L)  
         LS=LSC(L)  
-        IF(LS==0.OR.LN==0)THEN
-          PRINT*,'SETBCS LINE 356; LS,LN,L=',LS,LN,L
+ !       IF(LS==0.OR.LN==0)THEN
+ !         PRINT*,'SETBCS LINE 356; LS,LN,L=',LS,LN,L
  !         PAUSE
-        ENDIF
+ !       ENDIF
         IF(SVB(L).GT.0.5)THEN  
           DXV(L)=0.5*(DXP(L)+DXP(LS))  
           DYV(L)=0.5*(DYP(L)+DYP(LS))  
