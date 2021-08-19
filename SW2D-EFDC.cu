@@ -722,7 +722,8 @@ __global__ void treat_error(int cols, int rows, double *d_th, int *d_inf, double
 
 }
 
-__host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, int dimy,double dx,double dy, int *Qnqs, int **north_bc, int **south_bc, int **east_bc, int **west_bc, double **north_val, double **south_val, double **east_val, double **west_val, int *mask, double *h_h,double *h_vn,double *h_um,int t, double time){
+
+__host__ void couple_BC_efdc(int volumeFlow_BC, int dimx, int dimy,double dx,double dy, int *Qnqs, int **north_bc, int **south_bc, int **east_bc, int **west_bc, double **north_val, double **south_val, double **east_val, double **west_val, int *mask, double *h_h,double *h_vn,double *h_um,int t, double time){
 
 	int ini, inj;
 	//int bc_id=0;	
@@ -757,10 +758,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						south_bc[s_id][1] = ini+2;
 						south_bc[s_id][2] = s_id+1;
 						south_val[t][0] = time;
-						if (pressure_OpenBC==1){
-							south_val[t][s_id + 1] = h_h[posxy - dimx];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_um[posxy]<0){
 								south_val[t][s_id + 1] = -h_um[posxy]*h_h[posxy]*dx;
 							}
@@ -777,10 +775,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						north_bc[n_id][1] = ini;
 						north_bc[n_id][2] = n_id + 1;
 						north_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							north_val[t][n_id + 1] = h_h[posxy + dimx];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_um[posxy]>0){
 								north_val[t][n_id + 1] = h_um[posxy] *h_h[posxy]* dx;
 							}
@@ -797,10 +792,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						east_bc[e_id][1] = ini+1;
 						east_bc[e_id][2] = e_id + 1;
 						east_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							east_val[t][e_id + 1] = h_h[posxy-1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_vn[posxy]<0){
 								east_val[t][e_id + 1] = -h_vn[posxy] *h_h[posxy]* dy;
 							}
@@ -818,10 +810,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						west_bc[w_id][1] = ini+1;
 						west_bc[w_id][2] = w_id + 1;
 						west_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							west_val[t][w_id + 1] = h_h[posxy+1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_vn[posxy]>0){
 								west_val[t][w_id + 1] = h_vn[posxy] *h_h[posxy]* dy;
 							}
@@ -843,10 +832,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						south_bc[s_id][1] = ini+2;
 						south_bc[s_id][2] = s_id + 1;
 						south_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							south_val[t][s_id + 1] = h_h[posxy - dimx];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_um[posxy]<0){
 								south_val[t][s_id + 1] = -h_um[posxy]*h_h[posxy]*dx;
 							}
@@ -863,10 +849,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						north_bc[n_id][1] = ini;
 						north_bc[n_id][2] = n_id + 1;
 						north_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							north_val[t][n_id + 1] = h_h[posxy + dimx];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_um[posxy]>0){
 								north_val[t][n_id + 1] = h_um[posxy]*h_h[posxy]*dx;
 							}
@@ -884,10 +867,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						east_bc[e_id][1] = ini+1;
 						east_bc[e_id][2] = e_id + 1;
 						east_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							east_val[t][e_id + 1] = h_h[posxy-1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_vn[posxy]<0){
 								east_val[t][e_id + 1] = -h_vn[posxy]*h_h[posxy]*dy;
 							}
@@ -910,10 +890,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						south_bc[s_id][1] = ini+2;
 						south_bc[s_id][2] = s_id + 1;
 						south_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							south_val[t][s_id + 1] = h_h[posxy - dimx];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_um[posxy]<0){
 								south_val[t][s_id + 1] = -h_um[posxy] *h_h[posxy]* dx;
 							}
@@ -930,10 +907,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						north_bc[n_id][1] = ini;
 						north_bc[n_id][2] = n_id + 1;
 						north_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							north_val[t][n_id + 1] = h_h[posxy + dimx];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_um[posxy]>0){
 								north_val[t][n_id + 1] = h_um[posxy] *h_h[posxy]* dx;
 							}
@@ -951,10 +925,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						west_bc[w_id][1] = ini+1;
 						west_bc[w_id][2] = w_id + 1;
 						west_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							west_val[t][w_id + 1] = h_h[posxy+1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_vn[posxy]>0){
 								west_val[t][w_id + 1] = h_vn[posxy]*h_h[posxy]*dy;
 							}
@@ -976,10 +947,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 					   south_bc[s_id][1] = ini+2;
 					   south_bc[s_id][2] = s_id + 1;
 					   south_val[t][0] = time;
-					   if (pressure_OpenBC == 1){
-						   south_val[t][s_id + 1] = h_h[posxy - dimx];
-					   }
-					   else if (volumeFlow_BC == 1){
+					   if (volumeFlow_BC == 1){
 						   if (h_um[posxy]<0){
 							   south_val[t][s_id + 1] = -h_um[posxy]*h_h[posxy]*dx;
 						   }
@@ -997,10 +965,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						east_bc[e_id][1] = ini+1;
 						east_bc[e_id][2] = e_id + 1;
 						east_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							east_val[t][e_id + 1] = h_h[posxy-1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_vn[posxy]<0){
 								east_val[t][e_id + 1] = -h_vn[posxy]*h_h[posxy]*dy;
 							}
@@ -1018,10 +983,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						west_bc[w_id][1] = ini+1;
 						west_bc[w_id][2] = w_id + 1;
 						west_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							west_val[t][w_id + 1] = h_h[posxy+1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 							if (h_vn[posxy]>0){
 								west_val[t][w_id + 1] = h_vn[posxy]*h_h[posxy]*dy;
 							}
@@ -1042,10 +1004,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 					   north_bc[n_id][1] = ini;
 					   north_bc[n_id][2] = n_id + 1;
 					   north_val[t][0] = time;
-					   if (pressure_OpenBC == 1){
-						   north_val[t][n_id + 1] = h_h[posxy + dimx];
-					   }
-					   else if (volumeFlow_BC == 1){
+					   if (volumeFlow_BC == 1){
 
 						   if (h_um[posxy]>0){
 							   north_val[t][n_id + 1] = h_um[posxy]*h_h[posxy]*dx;
@@ -1063,10 +1022,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						east_bc[e_id][1] = ini+1;
 						east_bc[e_id][2] = e_id + 1;
 						east_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							east_val[t][e_id + 1] = h_h[posxy-1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 
 							if (h_vn[posxy]<0){
 								east_val[t][e_id + 1] = -h_vn[posxy]*h_h[posxy]*dy;
@@ -1085,10 +1041,7 @@ __host__ void couple_BC_efdc(int pressure_OpenBC, int volumeFlow_BC, int dimx, i
 						west_bc[w_id][1] = ini+1;
 						west_bc[w_id][2] = w_id + 1;
 						west_val[t][0] = time;
-						if (pressure_OpenBC == 1){
-							west_val[t][w_id + 1] = h_h[posxy+1];
-						}
-						else if (volumeFlow_BC == 1){
+						if (volumeFlow_BC == 1){
 
 							if (h_vn[posxy]>0){
 								west_val[t][w_id + 1] = h_vn[posxy]*h_h[posxy]*dy;
@@ -1120,7 +1073,7 @@ __host__ void write_efdc_CONFIG(const char *filepath, int *nqsij,\
 	int nts_out, int **LTS,int NTSSSS,int MTSP,int MTSC,int MTSA,int MTSUE,int MTSUT,int MTSU,\
 	double ZBRADJ,double   ZBRCVRT,double   HMIN,double  HADJ,double   HCVRT,\
 	double   HDRY,double  HWET,double  BELADJ,double   BELCVRT,\
-	int NWSER,int NASER,double DX, double DY){
+	int NWSER,int NASER,double DX, double DY, int dye_on, int salt_on, int temp_on, int temp_opt){
 	
 	char s6[100], s7[100], s8[100], s9[100],s10[100],s11[100],s14[100];
 	char s22[100], s23[100], s24[100], s25[100], s26[100],s71[100], s72[100],s73[100],s84[100],s87[100];
@@ -1133,10 +1086,6 @@ __host__ void write_efdc_CONFIG(const char *filepath, int *nqsij,\
 	int i, bn, bs, be, bw, nqs,nl;
 	nqs = 0;
 
-    int dye_on = 1;
-	int salt_on = 1;
-	int temp_on = 1;
-	int temp_opt = 1;
 	
 	//===========================================================
 	//                         C6
@@ -1145,8 +1094,8 @@ __host__ void write_efdc_CONFIG(const char *filepath, int *nqsij,\
 	FILE *f6 = fopen(filepath, "rb+");
 	fseek(f6, 0, SEEK_END);//SEEK_END           //Manda o cursor para o fim do arquivo
 	
-	tam = ftell(f6) - 4;              //A posição final é igual ao tamanho do arquivo
-	rewind(f6);                       //Volta para o início do arquivo	
+	tam = ftell(f6) - 4;                        //A posição final é igual ao tamanho do arquivo
+	rewind(f6);                                 //Volta para o início do arquivo	
 	pos_C7 = ftell(f6);
 	
 	while (fscanf(f6, "%s%*c\n", s6) == 1 && strcmp(s6, "C7") != 0){
@@ -1852,11 +1801,11 @@ __host__ void write_efdc_CONFIG(const char *filepath, int *nqsij,\
 	fprintf(f71, "%s\n", "C71 ISSPH NPSPH ISRSPH ISPHXY"); 	
 	
     fprintf(f71, "     %d    %d     %d     %d    %s\n", \
-		salt_on, 1, 0, 3, "!SAL");
+		salt_on, 1, 0, 1, "!SAL");
 	fprintf(f71, "     %d    %d     %d     %d    %s\n", \
-		temp_on, 1, 0, 3, "!TEM");
+		temp_on, 1, 0, 1, "!TEM");
 	fprintf(f71, "     %d    %d     %d     %d    %s\n", \
-		dye_on, 1, 0, 3, "!DYE");
+		dye_on, 1, 0, 1, "!DYE");
 	fprintf(f71, "     %d    %d     %d     %d    %s\n", \
 		0, 1, 0, 3, "!EE WC/Sediment Top Layer Flag");
 	fprintf(f71, "     %d    %d     %d     %d    %s\n", \
@@ -2078,7 +2027,7 @@ __host__ void write_efdc_SSER(const char *filepath, int type, int nlayers, int *
 
 	//                      SSER.INP: LAYOUT  
 	
-	fprintf(outSSER, "%s\n", "C **, SSER.INP Time Series FILE, DDD  15 / 04 / 2021 15:28");
+	fprintf(outSSER, "%s\n", "C **, SSER.INP Time Series FILE");
 	fprintf(outSSER, "%s\n", "C **");
 	fprintf(outSSER, "%s\n", "C **");
 	fprintf(outSSER, "%s\n", "C **  InType MSSER(NS) TCSSER(NS) TASSER(NS) RMULADJ(NS) ADDADJ(NS)");
@@ -2193,7 +2142,7 @@ __host__ void write_efdc_TSER(const char *filepath, int type, int nlayers, int *
 
 	//                      TSER.INP: LAYOUT  
 	
-	fprintf(outTSER, "%s\n", "C **, TSER.INP Time Series FILE, DDD  15 / 04 / 2021 15:28");
+	fprintf(outTSER, "%s\n", "C **, TSER.INP Time Series FILE");
 	fprintf(outTSER, "%s\n", "C **");
 	fprintf(outTSER, "%s\n", "C **");
 	fprintf(outTSER, "%s\n", "C **  InType MTSER(NS) TCTSER(NS) TATSER(NS) RMULADJ(NS) ADDADJ(NS)");
@@ -2435,7 +2384,7 @@ __host__ void write_efdc_DSER(const char *filepath, int type, int nlayers, int *
 
 	//                      DSER.INP: LAYOUT  
 	
-	fprintf(outDSER, "%s\n", "C **, DSER.INP Time Series FILE, DDD  15 / 04 / 2021 15:28");
+	fprintf(outDSER, "%s\n", "C **, DSER.INP Time Series FILE");
 	fprintf(outDSER, "%s\n", "C **");
 	fprintf(outDSER, "%s\n", "C **");
 	fprintf(outDSER, "%s\n", "C **  InType MDSER(NS) TCDSER(NS) TADSER(NS) RMULADJ(NS) ADDADJ(NS)");
@@ -2551,7 +2500,7 @@ __host__ void write_efdc_QSER(const char *filepath, int type, int nlayers, int *
 
 	//                      QSER.INP: LAYOUT  
 	
-	fprintf(outQSER, "%s\n", "C **, qser.inp Time Series FILE, DDD  15 / 04 / 2021 15:28");
+	fprintf(outQSER, "%s\n", "C **, qser.inp Time Series FILE");
 	fprintf(outQSER, "%s\n", "C **");
 	fprintf(outQSER, "%s\n", "C **  InType MQSER(NS) TCQSER(NS) TAQSER(NS) RMULADJ(NS) ADDADJ(NS) ICHGQS");
 	fprintf(outQSER, "%s\n", "C **");
@@ -2668,7 +2617,7 @@ __host__ void write_efdc_WSER(const char *filepath, double **wind_vel, double da
 
 	//                      WSER.INP: LAYOUT  
 
-	fprintf(outWSER, "%s\n", "C **, wser.inp Time Series FILE, DDD 11 / 12 / 2008 00:31 : 51");
+	fprintf(outWSER, "%s\n", "C **, wser.inp Time Series FILE");
 	fprintf(outWSER, "%s\n", "C **");
 	fprintf(outWSER, "%s\n", "C **  WIND FORCING FILE, USE WITH 7 APRIL 97 AND LATER VERSIONS OF EFDC");
 	fprintf(outWSER, "%s\n", "C **");
@@ -2710,7 +2659,10 @@ __host__ void write_efdc_WSER(const char *filepath, double **wind_vel, double da
 	fclose(outWSER);
 }
 
-__host__ void write_efdc_ASER(const char *filepath, double **ASER_val, double data_basetime, double efdc_basetime, int ntime){
+__host__ void write_efdc_ASER(const char *filepath, double **ASER_val,\
+                              int IASWRAD,double REVC,double RCHC,double SWRATNF,double SWRATNS,\
+							  double FSWRATF,double DABEDT,double TBEDIT,double HTBED1,double HTBED2,\
+							  double data_basetime, double efdc_basetime, int ntime){
 
 	// ntime = number of time data points
 	// data_time in seconds
@@ -2719,9 +2671,9 @@ __host__ void write_efdc_ASER(const char *filepath, double **ASER_val, double da
 	FILE * outASER = fopen(filepath, "w");
 
 	//                      ASER.INP: LAYOUT  
-	fprintf(outASER, "%s\n", "# ASER.INP: 1 / 1 / 2007 to 11 / 27 / 2009");
-	fprintf(outASER, "%s\n", "# WBAN : 22521 - Honolulu Inter Airport");
-	fprintf(outASER, "%s\n", "#	First time point = 733042 HST(derived from the fact that days 0.5 have max temp)");
+	fprintf(outASER, "%s\n", "# ASER.INP ");
+	fprintf(outASER, "%s\n", "# ");
+	fprintf(outASER, "%s\n", "#	");
 	fprintf(outASER, "%s\n", "#  ATMOSPHERIC FORCING FILE, USE WITH 28 JULY 96 AND LATER VERSIONS OF EFDC");
 	fprintf(outASER, "%s\n", "#  MASER = NUMBER OF TIME DATA POINTS");
 	fprintf(outASER, "%s\n", "#  TCASER = DATA TIME UNIT CONVERSION TO SECONDS");
@@ -2731,7 +2683,7 @@ __host__ void write_efdc_ASER(const char *filepath, double **ASER_val, double da
 	fprintf(outASER, "%s\n", "#  EVAPCVT = CONVERTS EVAP TO UNITS OF M / SEC, IF EVAPCVT<0 EVAP IS INTERNALLY COMPUTED");
 	fprintf(outASER, "%s\n", "#  SOLRCVT = CONVERTS SOLAR SW RADIATION TO JOULES / SQ METER");
 	fprintf(outASER, "%s\n", "#  CLDCVT = MULTIPLIER FOR ADJUSTING CLOUD COVER");
-	fprintf(outASER, "%s\n", "#  IASWRAD = O DISTRIBUTE SW SOL RAD OVER WATER COL AND INTO BED, = 1 ALL TO SURF LAYER");
+	fprintf(outASER, "%s\n", "#  IASWRAD = 0 DISTRIBUTE SW SOL RAD OVER WATER COL AND INTO BED, = 1 ALL TO SURF LAYER");
 	fprintf(outASER, "%s\n", "#  REVC = 1000 * EVAPORATIVE TRANSFER COEF, REVC<0 USE WIND SPD DEPD DRAG COEF");
 	fprintf(outASER, "%s\n", "#  RCHC = 1000 * CONVECTIVE HEAT TRANSFER COEF, REVC<0 USE WIND SPD DEPD DRAG COEF");
 	fprintf(outASER, "%s\n", "#  SWRATNF = FAST SCALE SOLAR SW RADIATION ATTENUATION COEFFCIENT 1. / METERS");
@@ -2759,7 +2711,7 @@ __host__ void write_efdc_ASER(const char *filepath, double **ASER_val, double da
 	//                                                        MASER  TCASER         TAASER  IRELH    RAINCVT                 EVAPCVT                  SOLRCVT   CLDCVT
 	fprintf(outASER, "      %d %lf %lf %d %E %E %lf %lf\n", ntime, efdc_basetime, 1.0, 1, 1 / (data_basetime*1000.0), 1 / (data_basetime*1000.0), 1.0, 1.0);
 	//                                                                IASWRAD  REVC    RCHC    SWRATNF  SWRATNS  FSWRATF  DABEDT    TBEDIT    HTBED1    HTBED2  
-	fprintf(outASER, "      %d %lf %lf %lf %lf %lf %lf %lf %lf %lf\n", 1,     -1.0,   -1.0,    0.0,     0.0,     0.0,     10.0,     5.0,      0.1,      1.0E-7);
+	fprintf(outASER, "      %d %lf %lf %lf %lf %E %lf %lf %E %E\n",IASWRAD, REVC,   RCHC,   SWRATNF, SWRATNS, FSWRATF, DABEDT,   TBEDIT,   HTBED1,   HTBED2);
 
 	int ig1, il, an;
 	double stime = -1.000;
@@ -2876,7 +2828,7 @@ __host__ void lake_catchment_smooth(int dimx, int dimy, int *mask, double *baseo
                                 const char *grid_inputs_filepath){
 __host__ void make_gefdc_inputs(const char *domain_filepath, const char *grid_inputs_filepath, double *bathy){									
 									
-   int er,np,sq,j_in,i,j,dimx,dimy,dec,min_dec,rows,cols,NDEPDAT,ISGG,IGM,JGM,ITRXM,ITRHM,ITRKM,ITRGM,NDEPSM,NDEPSMF,DDATADJ,ISIRKI,JSIRKI,ISIHIHJ,JSIHIHJ,ISIDEP,ISIDPTYP,ISVEG,NVEGDAT,NVEGTYP,ILT,JLT;
+   int er,np,sq,j_in,i,j,dimx,dimy,dec,min_dec,rows,cols,NDEPDAT,ISGG,IGM,JGM,ITRXM,ITRHM,ITRKM,ITRGM,NDEPSM,NDEPSMF,DDATADJ,ISIRKI,JSIRKI,ISIHIHJ,JSIHIHJ,ISIDEP,ISIDPTYP,ISVEG,NVEGDAT,NVEGTYP,ILT,JLT,VERBOSE;
    float CDLON1,CDLON2,CDLON3,CDLAT1,CDLAT2,CDLAT3,DEPMIN,RPX,RPK,RPH,XSHIFT,YSHIFT,HSCALE,RKJDKI,ANGORO,CDEP,RADM,SURFELV,XLB,YLB;
    double res,RSQXM,RSQKM,RSQKIM,RSQHM,RSQHIM,RSQHJM,ZROUGH,xcoor,ycoor,resolution,NaN;
  
@@ -2983,17 +2935,17 @@ res = resolution;
 // Read grid_make_input.txt file
 //fscanf(grid_parameters," SPATIAL RESOLUTION");
 //fscanf(grid_parameters," RESOLUTION: %lf",&res);
-fscanf(grid_parameters," GRAPHICS GRID INFORMATION");
-fscanf(grid_parameters," ISGG: %d",&ISGG);
-fscanf(grid_parameters," IGM: %d",&IGM);
-fscanf(grid_parameters," JGM: %d",&JGM);
-fscanf(grid_parameters," CARTESIAN AND GRAPHICS GRID COORDINATE DATA");
-fscanf(grid_parameters," CDLON1: %f",&CDLON1);
-fscanf(grid_parameters," CDLON2: %f",&CDLON2);
-fscanf(grid_parameters," CDLON3: %f",&CDLON3);
-fscanf(grid_parameters," CDLAT1: %f",&CDLAT1);
-fscanf(grid_parameters," CDLAT2: %f",&CDLAT2);
-fscanf(grid_parameters," CDLAT3: %f",&CDLAT3);
+//fscanf(grid_parameters," GRAPHICS GRID INFORMATION");
+//fscanf(grid_parameters," ISGG: %d",&ISGG);
+//fscanf(grid_parameters," IGM: %d",&IGM);
+//fscanf(grid_parameters," JGM: %d",&JGM);
+//fscanf(grid_parameters," CARTESIAN AND GRAPHICS GRID COORDINATE DATA");
+//fscanf(grid_parameters," CDLON1: %f",&CDLON1);
+//fscanf(grid_parameters," CDLON2: %f",&CDLON2);
+//fscanf(grid_parameters," CDLON3: %f",&CDLON3);
+//fscanf(grid_parameters," CDLAT1: %f",&CDLAT1);
+//fscanf(grid_parameters," CDLAT2: %f",&CDLAT2);
+//fscanf(grid_parameters," CDLAT3: %f",&CDLAT3);
 fscanf(grid_parameters," SOLUTION ITERATIONS AND SMOOTHING INFORMATION");
 fscanf(grid_parameters," ITRXM: %d",&ITRXM);
 fscanf(grid_parameters," ITRHM: %d",&ITRHM);
@@ -3034,11 +2986,12 @@ fscanf(grid_parameters," ISVEG: %d",&ISVEG);
 fscanf(grid_parameters," NVEGDAT: %d",&NVEGDAT);
 fscanf(grid_parameters," NVEGTYP: %d",&NVEGTYP);
 fscanf(grid_parameters," ZROUGH: %lf",&ZROUGH);
-fscanf(grid_parameters," LAST BOUNDARY POINT INFORMATION");
-fscanf(grid_parameters," ILT: %d",&ILT);
-fscanf(grid_parameters," JLT: %d",&JLT);
-fscanf(grid_parameters," XLB: %f",&XLB);
-fscanf(grid_parameters," YLB: %f",&YLB);
+fscanf(grid_parameters," VERBOSE: %d",&VERBOSE);
+//fscanf(grid_parameters," LAST BOUNDARY POINT INFORMATION");
+//fscanf(grid_parameters," ILT: %d",&ILT);
+//fscanf(grid_parameters," JLT: %d",&JLT);
+//fscanf(grid_parameters," XLB: %f",&XLB);
+//fscanf(grid_parameters," YLB: %f",&YLB);
 
 
 
@@ -3666,7 +3619,6 @@ for (i=2;i<min_dec-1;i++){
 //==========================================================
 //                Build gefdc.inp
 //==========================================================
-
 // Write gefdc.inp
 
 fprintf(wf_gefdc,"%s\n","C1 TITLE");
@@ -3679,11 +3631,11 @@ fprintf(wf_gefdc,"%s\n","C2 NTYPE  NBPP  IMIN  IMAX  JMIN  JMAX  IC   JC");
 fprintf(wf_gefdc,"%s\n","C3 GRAPHICS GRID INFORMATION");
 fprintf(wf_gefdc,"%s\n","C3 ISGG IGM JGM DXCG DYCG NWTGG");
        fprintf(wf_gefdc,"   %d   %d  %d  %f   %f   %d\n",
-                            ISGG,IGM,JGM,res,res,1);							
+                            0,0,0,res,res,1);							
 fprintf(wf_gefdc,"%s\n","C4 CARTESIAN AND GRAPHICS GRID COORDINATE DATA");
 fprintf(wf_gefdc,"%s\n","C4 CDLON1 CDLON2 CDLON3 CDLAT1 CDLAT2 CDLAT3");
        fprintf(wf_gefdc,"   %f     %f     %f     %f     %f     %f\n",
-                            CDLON1,CDLON2,CDLON3,CDLAT1,CDLAT2,CDLAT3);
+                            0.0,0.0,0.0,0.0,0.0,0.0);
 fprintf(wf_gefdc,"%s\n","C5 INTEGER INPUT");
 fprintf(wf_gefdc,"%s\n","C5 ITRXM ITRHM ITRKM ITRGM NDEPSM NDEPSMF DEPMIN DDATADJ");
        fprintf(wf_gefdc,"   %d    %d    %d    %d    %d     %d      %f     %d\n",
@@ -3706,15 +3658,14 @@ fprintf(wf_gefdc,"%s\n","C10 NTYPE = 7 SPECIFID INPUT");
 fprintf(wf_gefdc,"%s\n","C10 X Y IN ORDER (IB,JB) (IE,JB) (IE,JE) (IB,JE)");
 fprintf(wf_gefdc,"%s\n","C11 DEPTH INTERPOLATION SWITCHES");
 fprintf(wf_gefdc,"%s\n","C11 ISIDEP NDEPDAT CDEP RADM ISIDPTYP SURFELV ISVEG NVEGDAT NVEGTYP");
-       fprintf(wf_gefdc,"    %d     %d      %f   %f   %d       %f      %d    %d      %d     %lf\n",
-                             ISIDEP,NDEPDAT,CDEP,RADM,ISIDPTYP,SURFELV,ISVEG,NVEGDAT,NVEGTYP,ZROUGH);
+       fprintf(wf_gefdc,"    %d     %d      %f   %f   %d       %f      %d    %d      %d     %lf     %d\n",
+                             ISIDEP,NDEPDAT,CDEP,RADM,ISIDPTYP,SURFELV,ISVEG,NVEGDAT,NVEGTYP,ZROUGH,VERBOSE);
 fprintf(wf_gefdc,"%s\n","C12 LAST BOUNDARY POINT INFORMATION");
 fprintf(wf_gefdc,"%s\n","C12 ILT JLT X(ILT,JLT) Y(ILT,JLT)");
        fprintf(wf_gefdc,"    %d  %d       %f         %f\n",
-                             ILT,JLT,     XLB,         YLB);
+                             1,   1,     0.0,         0.0);
 fprintf(wf_gefdc,"%s\n","C13 BOUNDARY POINT INFORMATION");
-fprintf(wf_gefdc,"%s\n","C13 I J X(I,J) Y(I,J)");
-    
+fprintf(wf_gefdc,"%s\n","C13 I J X(I,J) Y(I,J)");    
 
    fclose(matrix_file);
   // fclose(bathy_file);
@@ -3741,7 +3692,7 @@ int main()
 	// Definition of string variables
 	std::string dir_parameters, dirfile_setup, dir_DEM, dir_overQ,\
 	dir_rain, initi_cond, outlet_file, dir_temperature,\
-	dir_solar_radiation, dir_mask, dir_wind_velocities, dir_meteo_data;
+	dir_solar_radiation, dir_mask, dir_wind_velocities;
 	
 	std::string tempo;
 
@@ -3775,17 +3726,31 @@ int main()
 	int threadsPerBlock;               //Number of threads
 	int maxThreadsPerBlock;
 
-	char dirfile[4000];//, fdem[50], fqq[50], frain[50], fdesignrain[50];
+	char dirfile[4000],skp[10];//, fdem[50], fqq[50], frain[50], fdesignrain[50];
 	//*************************************************
-	FILE *dir = fopen("db\/dir.txt", "r");
+	FILE *dir = fopen("db/dir.txt", "r");
 	fscanf(dir, " dir_number: %d/n", &dir_number);
 
 	for (dir_it = 0; dir_it < dir_number; dir_it++){
 		fscanf(dir, " %s/n", dirfile);
 		dir_parameters = dirfile;
 
+
+		printf("%s\n"," ******************************************************************** ");
+		printf("%s\n"," A coupled 2D-3D catchment-lake model "); 
+		printf("%s\n"," with a parallel processing framework (SW2D-EFDC) ");
+		printf("%s\n"," ******************************************************************** ");
+		printf("%s\n"," Month/Year - 08/2021 ");
+		printf("%s\n"," Developer: ");
+		printf("%s\n","     Tomas Carlotto    ");
+		printf("%s\n"," ******************************************************************** ");
+		printf("%s\n"," ******************************************************************** ");
+		printf("CASE: %s\n", dirfile);
+        printf("%s\n"," ");
+        printf("%s\n"," SW2D-GPU MODEL INITIALIZATION ");
+
 		FILE *file_setup;
-		dirfile_setup = "db\/" + dir_parameters + "\/SW2D\/input\/setup.dat";
+		dirfile_setup = "db/" + dir_parameters + "/setup.dat";
 		file_setup = fopen(dirfile_setup.c_str(), "r");
 		if (file_setup == NULL) {
 			printf("unknown file - setup.dat\n");
@@ -3793,24 +3758,215 @@ int main()
 			return 0;
 		}
 
-		fscanf(file_setup, " tday0_thour0_tmin0_tsec0: %lf %lf %lf %lf\n ", &tday0, &thour0, &tmin0, &tsec0);
-		fscanf(file_setup, " tday_thour_tmin_tsec: %lf %lf %lf %lf\n ", &tday, &thour, &tmin, &tsec);
-		fscanf(file_setup, " dt: %lf\n ", &dt);
-		fscanf(file_setup, " dpout: %lf\n ", &dpout);
-		fscanf(file_setup, " dkout: %lf\n ", &dkout);
-		fscanf(file_setup, " dtoq: %lf\n ", &dtoq);
-		fscanf(file_setup, " evaporation_on: %d\n", &evaporation_on);
-		fscanf(file_setup, " EV_WL_min: %lf\n ", &EV_WL_min);
-		fscanf(file_setup, " INT: %lf\n ", &INT);
-		fscanf(file_setup, " INF: %lf\n ", &INF);
-		fscanf(file_setup, " LWL: %lf\n ", &LWL);
-		fscanf(file_setup, " manning_coef: %lf\n ", &manning_coef);
-		fscanf(file_setup, " out_velocity_x: %d\n ", &out_velocity_x);
-		fscanf(file_setup, " out_velocity_y: %d\n ", &out_velocity_y);
-		fscanf(file_setup, " out_elevation: %d\n ", &out_elevation);
-		fscanf(file_setup, " out_depth: %d\n ", &out_depth);
-		fscanf(file_setup, " out_outlet_on: %d\n ", &out_outlet_on);
-		fscanf(file_setup, " efdc: %d\n ", &efdc);
+		fscanf(file_setup, " #*******************************************************#");
+		fscanf(file_setup, " # 1-SETUP: SW2D-GPU                                     #");
+		fscanf(file_setup, " #*******************************************************#");
+		fscanf(file_setup, " # START TIME: DAY, HOUR, MINUTES, SECONDS #");      
+		fscanf(file_setup, " %lf %lf %lf %lf\n ", &tday0, &thour0, &tmin0, &tsec0);
+		fscanf(file_setup, " # END TIME: DAY, HOUR, MINUTES, SECONDS #");
+		fscanf(file_setup, " %lf %lf %lf %lf\n ", &tday, &thour, &tmin, &tsec);
+		fscanf(file_setup, " # TIME STEP #");
+		fscanf(file_setup, " %lf\n ", &dt);
+		fscanf(file_setup, " # TIME INTERVAL TO SHOW TIME ON SCREEM (SECONDS) #");
+		fscanf(file_setup, " %lf\n ", &dpout);
+		fscanf(file_setup, " # TIME INTERVAL TO WRITE THE RESULTS (SECONDS) #");
+		fscanf(file_setup, " %lf\n ", &dkout);
+		fscanf(file_setup, " # TEMPORAL RESOLUTION OF FLOW INPUT DATA (SECONDS) #");
+		fscanf(file_setup, " %lf\n ", &dtoq);
+		fscanf(file_setup, " # EVAPORATION IN THE LAKE: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n", &evaporation_on);
+		fscanf(file_setup, " # MINIMUM WATER DEPTH FOR EVAPORATION #");
+		fscanf(file_setup, " %lf\n ", &EV_WL_min);
+		fscanf(file_setup, " # PERCENTAGE OF WATER LOST BY INTERCEPTION #");
+		fscanf(file_setup, " %lf\n ", &INT);
+		fscanf(file_setup, " # PERCENTAGE OF WATER LOST BY INFILTRATION #");
+		fscanf(file_setup, " %lf\n ", &INF);
+		fscanf(file_setup, " # PERCENTAGE OF WATER LOSS IN THE LAKE #");
+		fscanf(file_setup, " %lf\n ", &LWL);
+		fscanf(file_setup, " # MANNING COEFFICIENT #");
+		fscanf(file_setup, " %lf\n ", &manning_coef);
+		fscanf(file_setup, " # OUTPUT X VELOCITY: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n ", &out_velocity_x);
+		fscanf(file_setup, " # OUTPUT Y VELOCITY: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n ", &out_velocity_y);
+		fscanf(file_setup, " # OUTPUT ELEVATIONS: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n ", &out_elevation);
+		fscanf(file_setup, " # OUTPUT WATER DEPTH: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n ", &out_depth);
+		fscanf(file_setup, " # OUTPUT WATER DEPTH TIME SERIES: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n ", &out_outlet_on);
+		
+		fscanf(file_setup, " #*******************************************************#");
+		fscanf(file_setup, " # 2-SETUP: EFDC-MPI                                     #");
+		fscanf(file_setup, " #*******************************************************#");
+		fscanf(file_setup, " # 3D HYDRODYNAMIC MODEL: 1 ACTIVE, 0 INACTIVE #");
+		fscanf(file_setup, " %d\n ", &efdc);
+		
+		double efdc_basetime, TBEGIN, ZBRADJ,ZBRCVRT,HMIN,HADJ,HCVRT,HDRY,HWET,BELADJ,BELCVRT,\
+			   DYE_INIT,SALT_INIT,TEMP_SURF,TEMP_BOT,\
+			   DYE_IN,SALT_IN, REVC, RCHC, SWRATNF, SWRATNS,\
+			   FSWRATF, DABEDT, TBEDIT, HTBED1, HTBED2;
+		
+		int NTSPTC,NWSER,NASER,ISPPH,NPPPH,ISRPPH,IPPHXY,ISVPH,NPVPH,ISRVPH,IVPHXY,NTSSSS,\
+			MTSP,MTSC,MTSA,MTSUE,MTSUT,MTSU,NSTYPE, NSHOWR, ISHOWC, JSHOWC, NSHFREQ, ZSSMIN,\
+			ZSSMAX, SSALMAX, N_processors,Lorp_type,nlayers,IASWRAD,\
+			dye_on, salt_on, temp_on, temp_opt; 
+			
+			temp_opt = 1;
+		
+		if (efdc == 1){
+			
+			fscanf(file_setup, " #-------------- TEMPORAL CONTROLLERS -------------------#");
+			fscanf(file_setup, " # EFDC BASE TIME #");
+			fscanf(file_setup, " %lf\n ", &efdc_basetime);
+			fscanf(file_setup, " # TIME ORIGIN OF RUN #");
+			fscanf(file_setup, " %lf\n ", &TBEGIN);
+			fscanf(file_setup, " # NUMBER OF TIME STEPS PER REFERENCE TIME PERIOD #");
+			fscanf(file_setup, " %d\n ", &NTSPTC);
+			fscanf(file_setup, " #------- ROUGHNESS AND DEPTH PARAMETERS ----------#");
+			fscanf(file_setup, " # NUMBER OF VERTICAL LAYERS #");
+			fscanf(file_setup, " %d\n ", &nlayers);
+			fscanf(file_setup, " # LOG BDRY LAYER CONST OR VARIABLE ROUGH HEIGHT ADJ IN METERS #");
+			fscanf(file_setup, " %lf\n ", &ZBRADJ);
+			fscanf(file_setup, " # LOG BDRY LAYER VARIABLE ROUGHNESS HEIGHT CONVERT TO METERS #");
+			fscanf(file_setup, " %lf\n ", &ZBRCVRT);
+			fscanf(file_setup, " # MINIMUM DEPTH OF INPUTS DEPTHS IN METERS #");
+			fscanf(file_setup, " %lf\n ", &HMIN);
+			fscanf(file_setup, " # ADJUCTMENT TO DEPTH FIELD IN METERS #");
+			fscanf(file_setup, " %lf\n ", &HADJ);
+			fscanf(file_setup, " # CONVERTS INPUT DEPTH FIELD TO METERS #");
+			fscanf(file_setup, " %lf\n ", &HCVRT);
+			fscanf(file_setup, " # DEPTH AT WHICH CELL OR FLOW FACE BECOMES DRY #");
+			fscanf(file_setup, " %lf\n ", &HDRY);
+			fscanf(file_setup, " # DEPTH AT WHICH CELL OR FLOW FACE BECOMES WET #");
+			fscanf(file_setup, " %lf\n ", &HWET);
+			fscanf(file_setup, " # ADJUCTMENT TO BOTTOM BED ELEVATION FIELD IN METERS #");
+			fscanf(file_setup, " %lf\n ", &BELADJ);
+			fscanf(file_setup, " # CONVERTS INPUT BOTTOM BED ELEVATION FIELD TO METERS #");
+			fscanf(file_setup, " %lf\n ", &BELCVRT);
+			fscanf(file_setup, " #----------------- ATMOSPHERIC FORCING -----------------#");
+			fscanf(file_setup, " # NUMBER OF WIND TIME SERIES (0 SETS WIND TO ZERO) #");
+			fscanf(file_setup, " %d\n ", &NWSER);
+			fscanf(file_setup, " # NUMBER OF ATMOSPHERIC CONDITION TIME SERIES (0 SETS ALL  ZERO) #");
+			fscanf(file_setup, " %d\n ", &NASER);
+			
+			fscanf(file_setup, " #---------- ATMOSPHERIC AND THERMAL PROPERTIES ---------#");
+			fscanf(file_setup, " # 0 DISTRIBUTE SW SOL RAD OVER WATER COL AND INTO BED, = 1 ALL TO SURF LAYER #");
+			fscanf(file_setup, " %d\n ", &IASWRAD);
+			fscanf(file_setup, " # 1000 * EVAPORATIVE TRANSFER COEF, REVC<0 USE WIND SPD DEPD DRAG COEF #");
+			fscanf(file_setup, " %lf\n ", &REVC);
+			fscanf(file_setup, " # 1000 * CONVECTIVE HEAT TRANSFER COEF, REVC<0 USE WIND SPD DEPD DRAG COEF #");
+			fscanf(file_setup, " %lf\n ", &RCHC);
+			fscanf(file_setup, " # FAST SCALE SOLAR SW RADIATION ATTENUATION COEFFCIENT 1./METERS #");
+			fscanf(file_setup, " %lf\n ", &SWRATNF);
+			fscanf(file_setup, " # SLOW SCALE SOLAR SW RADIATION ATTENUATION COEFFCIENT 1./METERS #");
+			fscanf(file_setup, " %lf\n ", &SWRATNS);
+			fscanf(file_setup, " # FRACTION OF SOLSR SW RADIATION ATTENUATED FAST  0<FSWRATF<1 #");
+			fscanf(file_setup, " %lf\n ", &FSWRATF);
+			fscanf(file_setup, " # DEPTH OR THICKNESS OF ACTIVE BED TEMPERATURE LAYER, METERS #");
+			fscanf(file_setup, " %lf\n ", &DABEDT);
+			fscanf(file_setup, " # INITIAL BED TEMPERATURE #");
+			fscanf(file_setup, " %lf\n ", &TBEDIT);
+			fscanf(file_setup, " # CONVECTIVE HT COEFFCIENT BETWEEN BED AND BOTTOM WATER LAYER  NO DIM #");
+			fscanf(file_setup, " %lf\n ", &HTBED1);
+			fscanf(file_setup, " # HEAT TRANS COEFFCIENT BETWEEN BED AND BOTTOM WATER LAYER  M/SEC #");
+			fscanf(file_setup, " %lf\n ", &HTBED2);
+			
+			fscanf(file_setup, " #----- CONTROLS FOR HORIZONTAL SURFACE ELEVATION OR PRESSURE CONTOURING -----#");
+			fscanf(file_setup, " # SURFACE ELEVATION OUTPUT #");
+			fscanf(file_setup, " # 1 TO WRITE FILE FOR SURFACE ELEVATION OR PRESSURE CONTOURING #");
+			fscanf(file_setup, " # 2 WRITE ONLY DURING LAST REFERENCE TIME PERIOD #");
+			fscanf(file_setup, " %d\n ", &ISPPH);
+			fscanf(file_setup, " # NUMBER OF WRITES PER REFERENCE TIME PERIOD #");
+			fscanf(file_setup, " %d\n ", &NPPPH);
+			fscanf(file_setup, " # 1 TO WRITE FILE FOR RESIDUAL SURFACE ELEVATION  CONTOURNG IN HORIZONTAL PLANE #");
+			fscanf(file_setup, " %d\n ", &ISRPPH);
+			fscanf(file_setup, " # SURFACE ELEVATION WRITING FORMAT #");
+			fscanf(file_setup, " # 0 DOES NOT WRITE I,J,X,Y IN surfplt.out and rsurfplt.out FILES #");
+			fscanf(file_setup, " # 1 WRITES I,J ONLY IN surfplt.out and rsurfplt.out FILES #");
+			fscanf(file_setup, " # 2 WRITES I,J,X,Y  IN surfplt.out and rsurfplt.out FILES #");
+			fscanf(file_setup, " # 3 WRITES EFDC EXPLORER BINARY FORMAT FILES #");
+			fscanf(file_setup, " %d\n ", &IPPHXY);
+			fscanf(file_setup, " #------ CONTROLS FOR HORIZONTAL PLANE VELOCITY VECTOR PLOTTING ----------#");
+			fscanf(file_setup, " # HORIZONTAL PLANE VELOCITY OUTPUT #");
+			fscanf(file_setup, " # 1 TO WRITE FILE FOR VELOCITY PLOTTING IN HORIZONTAL PLANE #");
+			fscanf(file_setup, " # 2 WRITE ONLY DURING LAST REFERENCE TIME PERIOD #");
+			fscanf(file_setup, " %d\n ", &ISVPH);
+			fscanf(file_setup, " # NUMBER OF WRITES PER REFERENCE TIME PERIOD #");
+			fscanf(file_setup, " %d\n ", &NPVPH);
+			fscanf(file_setup, " # 1 TO WRITE FILE FOR RESIDUAL VELOCITY PLOTTIN IN HORIZONTAL PLANE #");
+			fscanf(file_setup, " %d\n ", &ISRVPH);
+			fscanf(file_setup, " # HORIZONTAL VELOCITY WRITING FORMAT #");
+			fscanf(file_setup, " # 0 DOES NOT WRITE I,J,X,Y IN velplth.out and rvelplth.out FILES #");
+			fscanf(file_setup, " # 1 WRITES I,J ONLY IN velplth.out and rvelplth.out FILES #");
+			fscanf(file_setup, " # 2 WRITES I,J,X,Y  IN velplth.out and rvelplth.out FILES #");
+			fscanf(file_setup, " # 3 WRITES EFDC EXPLORER BINARY FORMAT FILES #");
+			fscanf(file_setup, " %d\n ", &IVPHXY);
+			fscanf(file_setup, " #--------------- CONTROLS FOR WRITING TO TIME SERIES FILES --------------#");
+			fscanf(file_setup, " # WRITE SCENARIO FOR THIS LOCATION #");
+			fscanf(file_setup, " %d\n ", &NTSSSS);
+			fscanf(file_setup, " # 1 FOR TIME SERIES OF SURFACE ELEVATION #");
+			fscanf(file_setup, " %d\n ", &MTSP);
+			fscanf(file_setup, " # 1 FOR TIME SERIES OF TRANSPORTED CONCENTRATION VARIABLES #");
+			fscanf(file_setup, " %d\n ", &MTSC);
+			fscanf(file_setup, " # 1 FOR TIME SERIES OF EDDY VISCOSITY AND DIFFUSIVITY #");
+			fscanf(file_setup, " %d\n ", &MTSA);
+			fscanf(file_setup, " # 1 FOR TIME SERIES OF EXTERNAL MODE HORIZONTAL VELOCITY #");
+			fscanf(file_setup, " %d\n ", &MTSUE);
+			fscanf(file_setup, " # 1 FOR TIME SERIES OF EXTERNAL MODE HORIZONTAL TRANSPORT #");
+			fscanf(file_setup, " %d\n ", &MTSUT);
+			fscanf(file_setup, " # 1 FOR TIME SERIES OF HORIZONTAL VELOCITY IN EVERY LAYER #");
+			fscanf(file_setup, " %d\n ", &MTSU);
+			fscanf(file_setup, " #---------------------- SHOW.INP PARAMETERS ---------------------------#");
+			fscanf(file_setup, " # NSTYPE #");
+			fscanf(file_setup, " %d\n ", &NSTYPE);
+			fscanf(file_setup, " # NSHOWR #");
+			fscanf(file_setup, " %d\n ", &NSHOWR);
+			fscanf(file_setup, " # ISHOWC #");			
+			fscanf(file_setup, " %d\n ", &ISHOWC);			
+			fscanf(file_setup, " # JSHOWC #");
+			fscanf(file_setup, " %d\n ", &JSHOWC);			
+			fscanf(file_setup, " # NSHFREQ #");
+			fscanf(file_setup, " %d\n ", &NSHFREQ);
+			fscanf(file_setup, " # ZSSMIN #");
+			fscanf(file_setup, " %d\n ", &ZSSMIN);
+			fscanf(file_setup, " # ZSSMAX #");
+			fscanf(file_setup, " %d\n ", &ZSSMAX);
+			fscanf(file_setup, " # SSALMAX #");
+			fscanf(file_setup, " %d\n ", &SSALMAX);
+			fscanf(file_setup, " #----------------- DOMAIN DECOMPOSITION PARAMETERS --------------------#");
+			fscanf(file_setup, " # NUMBER OF PROCESSORS #");
+			fscanf(file_setup, " %d\n ", &N_processors);
+			fscanf(file_setup, " # LOCALLY OPTIMAL RECTILINEAR PARTITION (LORP) TYPE #");
+			fscanf(file_setup, " # 1 TYPE h #");
+			fscanf(file_setup, " # 2 TYPE v #");
+			fscanf(file_setup, " # 3 TYPE r #");
+			fscanf(file_setup, " %d\n ", &Lorp_type);
+			
+			fscanf(file_setup, " #---------------- CHOOSE TO INCLUDE IN THE SIMULATION -----------------#");
+			fscanf(file_setup, " # DYE SIMULATION: 1 ACTIVE, 0 INACTIVE #");
+			fscanf(file_setup, " %d\n ", &dye_on);
+			fscanf(file_setup, " # TEMPERATURE SIMULATION: 1 ACTIVE, 0 INACTIVE #");
+			fscanf(file_setup, " %d\n ", &temp_on);
+			fscanf(file_setup, " # SALINITY SIMULATION: 1 ACTIVE, 0 INACTIVE #");
+			fscanf(file_setup, " %d\n ", &salt_on);
+			fscanf(file_setup, " #----------------------- INITIAL CONDITIONS ---------------------------#");
+			fscanf(file_setup, " # INITIAL DYE CONCENTRATION IN THE LAKE #");
+			fscanf(file_setup, " %lf\n ", &DYE_INIT);
+			fscanf(file_setup, " # INITIAL SALINITY IN THE LAKE #");
+			fscanf(file_setup, " %lf\n ", &SALT_INIT);
+			fscanf(file_setup, " # WATER TEMPERATURE AT THE BOTTOM OF THE LAKE #");
+			fscanf(file_setup, " %lf\n ", &TEMP_BOT);
+			fscanf(file_setup, " # WATER TEMPERATURE ON THE LAKE SURFACE #");
+			fscanf(file_setup, " %lf\n ", &TEMP_SURF);
+			fscanf(file_setup, " #---- CATCHMENT-LAKE BOUNDARIES (WATER INPUTS FROM THE CATCHMENT) -----#");
+			fscanf(file_setup, " # DYE CONCENTRATION #");
+			fscanf(file_setup, " %lf\n ", &DYE_IN);
+			fscanf(file_setup, " # SALINITY #");
+			fscanf(file_setup, " %lf\n ", &SALT_IN);
+			
+		}
+		
 		fclose(file_setup);
 
 	
@@ -3822,10 +3978,10 @@ int main()
 		//                            Input MDT
 		// ******************************************************************
 
-		dir_DEM = "db\/" + dir_parameters + "\/SW2D\/input\/dem.txt";
+		dir_DEM = "db/" + dir_parameters + "/SW2D/input/dem.dat";
 		FILE *V_DEM = fopen(dir_DEM.c_str(), "r");
 		if (V_DEM == NULL) {
-			printf("unknown file - dem.txt\n");
+			printf("unknown file - dem.dat\n");
 			system("pause");
 			return 0;
 		}
@@ -3848,7 +4004,7 @@ int main()
 		// ****************************************************************
 
 		FILE *file_coord_source;
-		std::string dirfile_coord_source = "db\/" + dir_parameters + "\/SW2D\/input\/coord_source_sink.dat";
+		std::string dirfile_coord_source = "db/" + dir_parameters + "/SW2D/input/coord_source_sink.dat";
 		file_coord_source = fopen(dirfile_coord_source.c_str(), "r");
 		if (file_coord_source == NULL) {
 			printf("unknown file - coord_source_sink.dat\n");
@@ -3867,30 +4023,11 @@ int main()
 
 
 		// ******************************************************************
-		//                            Input outlet
-		// ******************************************************************	
-		/*
-		if (out_outlet_on == 1){
-			outlet_file = "db\/" + dir_parameters + "\/input\/outlet.dat";
-			FILE *V_outlet = fopen(outlet_file.c_str(), "r");
-			if (V_outlet == NULL) {
-				printf("unknown file - outlet.dat\n");
-				system("pause");
-				return 0;
-			}
-			h_outlet = (int*)malloc(N*sizeof(int));
-			for (i = 0; i < N; i++){
-				fscanf(V_outlet, "%d\n", &h_outlet[i]);
-			}
-			fclose(V_outlet);
-		}
-		*/
-		// ******************************************************************
 		//                    Input source or sink
 		// ******************************************************************
 		int cont_qq = 0;
 		int ch = 0;
-		dir_overQ = "db\/" + dir_parameters + "\/SW2D\/input\/Q_source_sink.dat";
+		dir_overQ = "db/" + dir_parameters + "/SW2D/input/Q_source_sink.dat";
 		FILE *V_dir_overQ = fopen(dir_overQ.c_str(), "r");
 		if (V_dir_overQ == NULL) {
 			printf("unknown file - Q_source_sink.dat\n");
@@ -3938,7 +4075,7 @@ int main()
 		//>>>>>>>>>>>>>>>>>>> Input Mensurement Rain <<<<<<<<<<<<<<<<<<<<<<
 		int cont_rain = 0;
 		int chr = 0;
-		dir_rain = "db\/" + dir_parameters + "\/SW2D\/input\/rain.dat";
+		dir_rain = "db/" + dir_parameters + "/SW2D/input/rain.dat";
 		FILE *V_dir_rain = fopen(dir_rain.c_str(), "r");
 		if (V_dir_rain == NULL) {
 			printf("unknown file - rain.dat\n");
@@ -3989,14 +4126,14 @@ int main()
 			cudaMalloc((void**)&d_lv, (cont_rain - 1)*sizeof(double));
 			cudaMalloc((void**)&d_Evapo, (cont_rain - 1)*sizeof(double));
 
-			dir_temperature = "db\/" + dir_parameters + "\/SW2D\/input\/temperatures.txt";
+			dir_temperature = "db/" + dir_parameters + "/SW2D/input/temperatures.dat";
 			FILE *V_dir_temperature = fopen(dir_temperature.c_str(), "r");
 			if (V_dir_temperature == NULL) {
 				printf("unknown file - evaporation.dat\n");
 				system("pause");
 				return 0;
 			}
-			dir_solar_radiation = "db\/" + dir_parameters + "\/SW2D\/input\/solar_radiation.txt";
+			dir_solar_radiation = "db/" + dir_parameters + "/SW2D/input/solar_radiation.dat";
 			FILE *V_dir_solar_radiation = fopen(dir_solar_radiation.c_str(), "r");
 			if (V_dir_solar_radiation == NULL) {
 				printf("unknown file - evaporation.dat\n");
@@ -4028,7 +4165,7 @@ int main()
 		//                    Input initial condition
 		// *************************************************************
 
-		initi_cond = "db\/" + dir_parameters + "\/SW2D\/input\/initial_condition.txt";
+		initi_cond = "db/" + dir_parameters + "/SW2D/input/initial_condition.dat";
 		FILE *V_initial_condition = fopen(initi_cond.c_str(), "r");
 		if (V_initial_condition == NULL) {
 			printf("unknown file - initial_condition.txt\n");
@@ -4051,26 +4188,26 @@ int main()
 		// Save Results
 		std::string dirRes_Output;
 		FILE *WL_Output;
-		std::string dirWaterLevel = "db\/" + dir_parameters + "\/SW2D\/output\/WaterLevel.txt";
+		std::string dirWaterLevel = "db/" + dir_parameters + "/SW2D/output/WaterLevel.txt";
 		WL_Output = fopen(dirWaterLevel.c_str(), "w");
 		if (out_outlet_on == 1){		    
-		//    std::string dirWaterLevel = "db\/" + dir_parameters + "\/output\/WaterLevel.txt";
+		//    std::string dirWaterLevel = "db/" + dir_parameters + "/output/WaterLevel.txt";
 		//    WL_Output = fopen(dirWaterLevel.c_str(), "w");
 
 		
 			FILE *file_coord_out;
-			std::string dirfile_coord_out = "db\/" + dir_parameters + "\/SW2D\/input\/coord_out.dat";
+			std::string dirfile_coord_out = "db/" + dir_parameters + "/SW2D/input/coord_out.dat";
 			file_coord_out = fopen(dirfile_coord_out.c_str(), "r");
 			if (file_coord_out == NULL) {
 				printf("unknown file - coord_out.dat\n");
 				system("pause");
 				return 0;
 			}
-			fscanf(file_coord_out, "n_out  %d/n ", &n_out);
+			fscanf(file_coord_out, "n_out  %d\n ", &n_out);
 			h_outx = (double*)malloc(n_out*sizeof(double));
 			h_outy = (double*)malloc(n_out*sizeof(double));
 			for (int in_out = 0; in_out < n_out; in_out++){
-				fscanf(file_coord_out, " %lf %lf/n ", &h_outx[in_out], &h_outy[in_out]);
+				fscanf(file_coord_out, " %lf %lf\n ", &h_outx[in_out], &h_outy[in_out]);
 				h_outx[in_out] = h_outx[in_out] / resolution;
 				h_outy[in_out] = h_outy[in_out] / resolution;
 			}
@@ -4105,20 +4242,19 @@ int main()
 		int **east_bc;
 		int **west_bc;
 		int **LTS;
+		double **CLTS;
 		int *nqsij, nqser, QSER_type,ius,vis;
 		double **north_val;
 		double **south_val;
 		double **east_val;
 		double **west_val;
 		
-		double efdc_time, efdc_basetime, TCON, TBEGIN, TREF, TCTMSR,\
-		       ZBRADJ,ZBRCVRT,HMIN,HADJ,HCVRT,HDRY,HWET,BELADJ,BELCVRT;
+		double efdc_time, TCON, TREF, TCTMSR;
 			   
-		int P2, NTC, NTSPTC, NTCPP, NTCVB, ISPPH, NPPPH, ISRPPH, IPPHXY,\
-			ISVPH, NPVPH, ISRVPH, IVPHXY, ISTMSR, MLTMSR, NBTMSR, NSTMSR, NWTMSR, NTSSTSP,\
-			nts_out, NTSSSS, MTSP, MTSC, MTSA, MTSUE, MTSUT, MTSU,\
-			NSTYPE, NSHOWR, ISHOWC, JSHOWC, NSHFREQ, ZSSMIN, ZSSMAX, SSALMAX,efdc_count,\
-			NWSER,NASER,N_processors,Lorp_type, ISGG;
+		int P2, NTC, NTCPP, NTCVB,\
+			ISTMSR, MLTMSR, NBTMSR, NSTMSR, NWTMSR, NTSSTSP,nts_out,\
+			efdc_count,\
+			ISGG;
 			
 		std::stringstream n_proc, c_name;
 
@@ -4130,17 +4266,19 @@ int main()
 		nqser = 0;
 		
 		int pressure_OpenBC = 0;
-		int volumeFlow_BC = 1;
-		int nlayers = 10;
+		int volumeFlow_BC = 1;		
 		
 		
 		if (efdc == 1){
 			
+			printf("%s\n"," ");
+			printf("%s\n"," EFDC-MPI MODEL INITIALIZATION ");
+			
 			char ch;
 			FILE *EFDC_template, *paste_EFDC_template;
-			std::string dirfile_template = "db\/" + dir_parameters + "\/EFDC\/input\/template\/EFDC.INP";
+			std::string dirfile_template = "db/" + dir_parameters + "/EFDC/input/template/EFDC.INP";
 			EFDC_template = fopen(dirfile_template.c_str(), "r");			
-			std::string dirfile_paste_template = "db\/" + dir_parameters + "\/EFDC\/input\/EFDC.INP";
+			std::string dirfile_paste_template = "db/" + dir_parameters + "/EFDC/input/EFDC.INP";
 			paste_EFDC_template = fopen(dirfile_paste_template.c_str(), "w");				
 			while ((ch = fgetc(EFDC_template)) != EOF){
                  fputc(ch, paste_EFDC_template);
@@ -4148,111 +4286,59 @@ int main()
 			fclose(EFDC_template);
 			fclose(paste_EFDC_template);
 			
-			efdc_basetime = 3600;  // seconds	
- 
-			TCON = efdc_basetime;  //CONVERSION MULTIPLIER TO CHANGE TBEGIN TO SECONDS 
-			TBEGIN = 0.0;          //TIME ORIGIN OF RUN
-			TREF = efdc_basetime;  //REFERENCE TIME PERIOD IN sec(i.e. 44714.16S OR 86400S)
 			
-			NTC = timmax/efdc_basetime;//NUMBER OF REFERENCE TIME PERIODS IN RUN
-			NTSPTC = 2*efdc_basetime;//NUMBER OF TIME STEPS PER REFERENCE TIME PERIOD
+			TCON = efdc_basetime;  //CONVERSION MULTIPLIER TO CHANGE TBEGIN TO SECONDS 
+			TREF = efdc_basetime;  //REFERENCE TIME PERIOD IN sec(i.e. 44714.16S OR 86400S)			
+			NTC = timmax/efdc_basetime;//NUMBER OF REFERENCE TIME PERIODS IN RUN			
 			NTCPP = NTC;            //NUMBER OF REFERENCE TIME PERIODS BETWEEN FULL PRINTED OUTPUT TO FILE EFDC.OUT
 			NTCVB = NTC;           //NUMBER OF REF TIME PERIODS WITH VARIABLE BUOYANCY FORCING
 			
-			//C11 GRID, ROUGHNESS AND DEPTH PARAMETERS
-			ZBRADJ = 0.0;          //LOG BDRY LAYER CONST OR VARIABLE ROUGH HEIGHT ADJ IN METERS
-			ZBRCVRT = 1.0;         //LOG BDRY LAYER VARIABLE ROUGHNESS HEIGHT CONVERT TO METERS
-			HMIN = 0.0;            //MINIMUM DEPTH OF INPUTS DEPTHS IN METERS
-			HADJ = 0.0;            //ADJUCTMENT TO DEPTH FIELD IN METERS
-			HCVRT = 1.0;           //CONVERTS INPUT DEPTH FIELD TO METERS
-			HDRY = 0.05;            //DEPTH AT WHICH CELL OR FLOW FACE BECOMES DRY
-			HWET = 0.025;           //DEPTH AT WHICH CELL OR FLOW FACE BECOMES WET
-			BELADJ = 0.00;          //ADJUCTMENT TO BOTTOM BED ELEVATION FIELD IN METERS
-			BELCVRT = 1.0;         //CONVERTS INPUT BOTTOM BED ELEVATION FIELD TO METERS
-			
-			// C14 TIDAL & ATMOSPHERIC FORCING, GROUND WATER AND SUBGRID CHANNEL PARAMETERS
-	        NWSER = 1;             //NUMBER OF WIND TIME SERIES (0 SETS WIND TO ZERO)  
-			NASER = 1;             //NUMBER OF ATMOSPHERIC CONDITION TIME SERIES (0 SETS ALL  ZERO)
-
-            //C72 CONTROLS FOR HORIZONTAL SURFACE ELEVATION OR PRESSURE CONTOURING
-			ISPPH = 1;            //1 TO WRITE FILE FOR SURFACE ELEVATION OR PRESSURE CONTOURING
-			                      //2 WRITE ONLY DURING LAST REFERENCE TIME PERIOD
-			NPPPH = 1;            //NUMBER OF WRITES PER REFERENCE TIME PERIOD
-			ISRPPH = 0;           //1 TO WRITE FILE FOR RESIDUAL SURFACE ELEVATION  CONTOURNG IN HORIZONTAL PLANE
-			IPPHXY = 1;           //0 DOES NOT WRITE I,J,X,Y IN surfplt.out and rsurfplt.out FILES
-			                      //1 WRITES I,J ONLY IN surfplt.out and rsurfplt.out FILES
-			                      //2 WRITES I,J,X,Y  IN surfplt.out and rsurfplt.out FILES
-			                      //3 WRITES EFDC EXPLORER BINARY FORMAT FILES
-
-			//C73 CONTROLS FOR HORIZONTAL PLANE VELOCITY VECTOR PLOTTING
-			ISVPH = 1;            //1 TO WRITE FILE FOR VELOCITY PLOTTING IN HORIZONTAL PLANE
-			                      //2 WRITE ONLY DURING LAST REFERENCE TIME PERIOD
-			NPVPH = 1;            //NUMBER OF WRITES PER REFERENCE TIME PERIOD
-			ISRVPH = 0;           //1 TO WRITE FILE FOR RESIDUAL VELOCITY PLOTTIN IN HORIZONTAL PLANE
-			IVPHXY = 1;           //0 DOES NOT WRITE I,J,X,Y IN velplth.out and rvelplth.out FILES
-			                      //1 WRITES I,J ONLY IN velplth.out and rvelplth.out FILES
-			                      //2 WRITES I,J,X,Y  IN velplth.out and rvelplth.out FILES
-			                      //3 WRITES EFDC EXPLORER BINARY FORMAT FILES
-
 			//C84 CONTROLS FOR WRITING TO TIME SERIES FILES
-			ISTMSR = 1;           //1 OR 2 TO WRITE TIME SERIES OF SURF ELEV, VELOCITY, NET
-				                  //INTERNAL AND EXTERNAL MODE VOLUME SOURCE - SINKS, AND
-				                  //CONCENTRATION VARIABLES, 2 APPENDS EXISTING TIME SERIES FILES
-			MLTMSR = 2;           //NUMBER HORIZONTAL LOCATIONS TO WRITE TIME SERIES OF SURF ELEV,
-				                  //VELOCITY, AND CONCENTRATION VARIABLES
-			NBTMSR = 1;           //TIME STEP TO BEGIN WRITING TO TIME SERIES FILES (Inactive)
-			NSTMSR = NTC*NTSPTC;        //TIME STEP TO STOP WRITING TO TIME SERIES FILES (Inactive)
-			NWTMSR = NTSPTC;      //NUMBER OF TIME STEPS TO SKIP BETWEEN OUTPUT
-			NTSSTSP = 1;          //NUMBER OF TIME SERIES START-STOP SCENARIOS,  1 OR GREATER
-			TCTMSR = 1.0;         //UNIT CONVERSION FOR TIME SERIES TIME.  FOR SECONDS, MINUTES,  
-			                      //HOURS, DAYS USE 1.0, 60.0, 3600.0, 86400.0 RESPECTIVELY
-								  
+			ISTMSR = out_outlet_on;   //1 TO WRITE TIME SERIES OF SURF ELEV, VELOCITY, NET
+				                      //INTERNAL AND EXTERNAL MODE VOLUME SOURCE - SINKS, AND
+				                      //CONCENTRATION VARIABLES
 			
-			// C87 CONTROLS FOR WRITING TO TIME SERIES FILES
+
+			NBTMSR = 1;               //TIME STEP TO BEGIN WRITING TO TIME SERIES FILES (Inactive)
+			NSTMSR = NTC*NTSPTC;      //TIME STEP TO STOP WRITING TO TIME SERIES FILES (Inactive)
+			NWTMSR = NTSPTC;          //NUMBER OF TIME STEPS TO SKIP BETWEEN OUTPUT
+			NTSSTSP = 1;              //NUMBER OF TIME SERIES START-STOP SCENARIOS,  1 OR GREATER
+			
+			
+			FILE *file_efdc_coord_out;
+			std::string dirfile_efdc_coord_out = "db/" + dir_parameters + "/SW2D/input/efdc_coord_out.dat";
+			file_efdc_coord_out = fopen(dirfile_efdc_coord_out.c_str(), "r");
+			if (file_efdc_coord_out == NULL) {
+				printf("unknown file - efdc_coord_out.dat\n");
+				system("pause");
+				return 0;
+			}
+			fscanf(file_efdc_coord_out, "time_conversion:  %lf\n ", &TCTMSR);//UNIT CONVERSION FOR TIME SERIES TIME.  FOR SECONDS, MINUTES,  
+			                                                                 //HOURS, DAYS USE 1.0, 60.0, 3600.0, 86400.0 RESPECTIVELY
+			fscanf(file_efdc_coord_out, "number_t_s_out:  %d\n ", &MLTMSR);  //NUMBER HORIZONTAL LOCATIONS TO WRITE TIME SERIES OF SURF ELEV,
+				                                                                  //VELOCITY, AND CONCENTRATION VARIABLES
+
 			nts_out = MLTMSR;
+			CLTS = (double**)malloc((nts_out)*sizeof(double*));
 			LTS = (int**)malloc((nts_out)*sizeof(int*));
 			for (int iu = 0; iu < nts_out; iu++){
-				LTS[iu] = (int*)malloc(2 * sizeof(int));
+				CLTS[iu] = (double*)malloc(2 * sizeof(double));		
+                LTS[iu] = (int*)malloc(2 * sizeof(int));					
+				fscanf(file_efdc_coord_out, " %lf %lf\n ",&CLTS[iu][0],&CLTS[iu][1]);
+				
+				LTS[iu][0] = round(abs((xcoor - CLTS[iu][0])/resolution));
+				LTS[iu][1] = round(abs((ycoor - CLTS[iu][1])/resolution));
+				
 			}
-
-			LTS[0][0] = 492;
-			LTS[0][1] = 534;
-
-			LTS[1][0] = 493;
-			LTS[1][1] = 535;
-
-			NTSSSS = 1;           // WRITE SCENARIO FOR THIS LOCATION
-			MTSP = 1;             // 1 FOR TIME SERIES OF SURFACE ELEVATION
-			MTSC = 1;             // 1 FOR TIME SERIES OF TRANSPORTED CONCENTRATION VARIABLES
-			MTSA = 1;             // 1 FOR TIME SERIES OF EDDY VISCOSITY AND DIFFUSIVITY
-			MTSUE = 1;            // 1 FOR TIME SERIES OF EXTERNAL MODE HORIZONTAL VELOCITY
-			MTSUT = 0;            // 1 FOR TIME SERIES OF EXTERNAL MODE HORIZONTAL TRANSPORT
-			MTSU = 1;             // 1 FOR TIME SERIES OF HORIZONTAL VELOCITY IN EVERY LAYER
-
-            // gefdc.f - GRAPHICS GRID INFORMATION
+						
+			// gefdc.f - GRAPHICS GRID INFORMATION
             ISGG = 0;
-
-
-			// SHOW.INP PARAMETERS
-			NSTYPE = 3;           
-			NSHOWR = NTSPTC;
-			ISHOWC = 13; //492
-			JSHOWC = 13; //534
-			NSHFREQ = NTSPTC;
-			ZSSMIN = -1;
-			ZSSMAX = 13;
-			SSALMAX = 1000;
 			
-			// EFDC DOMAIN DECOMPOSITION
-			N_processors = 6;
-			Lorp_type = 3 ;             // 1 type h
-			                            // 2 type v
-										// 3 type r
 												
-			dir_mask = "db\/" + dir_parameters + "\/SW2D\/input\/mask.txt";
+			dir_mask = "db/" + dir_parameters + "/SW2D/input/mask.dat";
 			FILE *V_mask = fopen(dir_mask.c_str(), "r");
 			if (V_mask == NULL) {
-				printf("unknown file - mask.txt\n");
+				printf("unknown file - mask.dat\n");
 				system("pause");
 				return 0;
 			}
@@ -4315,11 +4401,11 @@ int main()
 			}
 
 			// Wind velocities
-
-			dir_wind_velocities = "db\/" + dir_parameters + "\/SW2D\/input\/wind_velocities.txt";
+            if(NWSER == 1){
+			dir_wind_velocities = "db/" + dir_parameters + "/SW2D/input/wind_velocities.dat";
 			FILE *V_wind_velocities = fopen(dir_wind_velocities.c_str(), "r");
 			if (V_wind_velocities == NULL) {
-				printf("unknown file - wind_velocities.txt\n");
+				printf("unknown file - wind_velocities.dat\n");
 				system("pause");
 				return 0;
 			}
@@ -4332,89 +4418,96 @@ int main()
 			}
 			fclose(V_wind_velocities);
 
-			std::string efdc_WSER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/WSER.INP";
+			std::string efdc_WSER_filepath = "db/" + dir_parameters + "/EFDC/input/WSER.INP";
 			write_efdc_WSER(efdc_WSER_filepath.c_str(), h_wind_vel, dtrain, efdc_basetime, efdc_ntimes);
-
+            }
 
 			// EFDC Meteorological data
+            
+			std::string file_atm_press_data = "db/" + dir_parameters + "/SW2D/input/atm_press.dat";
+			std::string file_rel_humidity_data = "db/" + dir_parameters + "/SW2D/input/rel_humidity.dat";
 
-			dir_meteo_data = "db\/" + dir_parameters + "\/SW2D\/input\/efdc_meteo_data.txt";
-
-			FILE *V_dir_meteo_data = fopen(dir_meteo_data.c_str(), "r");
-
-			if (V_dir_meteo_data == NULL) {
-				printf("unknown file - efdc_meteo_data.txt\n");
+			FILE *V_file_atm_press_data = fopen(file_atm_press_data .c_str(), "r");
+			FILE *V_file_rel_humidity_data = fopen(file_rel_humidity_data .c_str(), "r");
+			
+			if (V_file_atm_press_data  == NULL) {
+				printf("unknown file - atm_press.dat\n");
 				system("pause");
 				return 0;
 			}
+			if (V_file_rel_humidity_data  == NULL) {
+				printf("unknown file - rel_humidity.dat\n");
+				system("pause");
+				return 0;
+			}
+			fscanf(V_file_atm_press_data , "atm_pressure(millibar)");
+			fscanf(V_file_rel_humidity_data , "rel_humidity(percent)");
+			
 			h_efdc_ASER = (double**)malloc((efdc_ntimes + 2)*sizeof(double*));
 			for (int iu = 0; iu < (efdc_ntimes + 2); iu++){
 				h_efdc_ASER[iu] = (double*)malloc(7 * sizeof(double));
 
-				fscanf(V_dir_meteo_data, " %lf %lf %lf %lf %lf %lf %lf\n ", &h_efdc_ASER[iu][0], &h_efdc_ASER[iu][1], &h_efdc_ASER[iu][2], &h_efdc_ASER[iu][3], &h_efdc_ASER[iu][4], &h_efdc_ASER[iu][5], &h_efdc_ASER[iu][6]);
-
+				fscanf(V_file_atm_press_data , " %lf\n ", &h_efdc_ASER[iu][0]);//, &h_efdc_ASER[iu][1], &h_efdc_ASER[iu][2], &h_efdc_ASER[iu][3], &h_efdc_ASER[iu][4], &h_efdc_ASER[iu][5], &h_efdc_ASER[iu][6]);
+                fscanf(V_file_rel_humidity_data , " %lf\n ", &h_efdc_ASER[iu][2]);
+				h_efdc_ASER[iu][6] = 0.00; // CLOUD
+				
 			}
-			fclose(V_dir_meteo_data);		
-
+			fclose(V_file_atm_press_data);		
+            fclose(V_file_rel_humidity_data);
+			
 			lake_catchment_smooth(cols, rows, h_mask, h_baseo);			
 						
 			std::string domain_filepath,bathymetry_filepath,grid_inputs_filepath,out_cell_filepath,\
 			            out_gridext_filepath,out_depdat_filepath,out_gefdc_filepath;
 			
-			domain_filepath = "db\/" + dir_parameters + "\/SW2D\/input\/mask.txt";
-			bathymetry_filepath="db\/" + dir_parameters + "\/SW2D\/input\/dem.txt";
-			grid_inputs_filepath="db\/" + dir_parameters + "\/SW2D\/input\/grid_make_input.txt";
+			domain_filepath = "db/" + dir_parameters + "/SW2D/input/mask.dat";
+			bathymetry_filepath="db/" + dir_parameters + "/SW2D/input/dem.dat";
+			grid_inputs_filepath="db/" + dir_parameters + "/grid_make_input.dat";
 			
-			//out_cell_filepath="db\/" + dir_parameters + "\/EFDC\/input\/CELL.INP";
-			//out_gridext_filepath="db\/" + dir_parameters + "\/EFDC\/input\/gefdc\/gridext.inp";
-			//out_depdat_filepath="db\/" + dir_parameters + "\/EFDC\/input\/gefdc\/depdat.inp";
-			//out_gefdc_filepath="db\/" + dir_parameters + "\/EFDC\/input\/gefdc\/gefdc.inp";
-			
-			//make_gefdc_inputs(domain_filepath.c_str(),bathymetry_filepath.c_str(),\
-                            grid_inputs_filepath.c_str(),out_cell_filepath.c_str(),\
-							out_gridext_filepath.c_str(),out_depdat_filepath.c_str(),\
-						    out_gefdc_filepath.c_str());	
-							
-							
-            //make_gefdc_inputs(domain_filepath.c_str(),bathymetry_filepath.c_str(),\
-                            grid_inputs_filepath.c_str());		
-							
+			printf("%s\n", " ");	
+            printf("%s\n", " GENERATING EFDC GRID INPUTS ");						
+													
 			make_gefdc_inputs(domain_filepath.c_str(),grid_inputs_filepath.c_str(),h_baseo);
 							
             
 			// Build EFDC EXE
-			std::string dirfile_input_EFDCexe = "db\/" + dir_parameters + "\/EFDC\/input\/EFDC";
+			std::string dirfile_input_EFDCexe = "db/" + dir_parameters + "/EFDC/input/EFDC";
 			rename("EFDC_src/EFDC", dirfile_input_EFDCexe.c_str());			
 			
-			// RUN Gorp (domain decomposition)			
-						
+			// RUN Gorp (domain decomposition)	
+            printf("%s\n", " ");	
+            printf("%s\n", " STARTING DOMAIN DECOMPOSITION ");						
+			printf("%s\n", " ");
             n_proc << N_processors;	             // NUMBER OF PROCESSORS EFDC DOMAIN DECOMPOSITION
 			c_name << "sc";
 			
-			std::string gorpparam = ".\/Gorp CELL.INP " + c_name.str() + " " + n_proc.str()+"";
+			std::string gorpparam = "./Gorp CELL.INP " + c_name.str() + " " + n_proc.str()+"";
 			int Gorp_RUN = system(gorpparam.c_str());	
 			
 			//=========================================
 			
 			if(Lorp_type == 1){
 				std::string LORP_name1 = "LORP_" + c_name.str() + "_" +n_proc.str()+ "_h.INP";
-				std::string dirfile_input_LORP1 = "db\/" + dir_parameters + "\/EFDC\/input\/LORP.INP";
+				std::string dirfile_input_LORP1 = "db/" + dir_parameters + "/EFDC/input/LORP.INP";
 				rename(LORP_name1.c_str(), dirfile_input_LORP1.c_str());				
 			}		
 			else if(Lorp_type == 2){
 				std::string LORP_name2 = "LORP_" + c_name.str() + "_" +n_proc.str()+ "_v.INP";
-				std::string dirfile_input_LORP2 = "db\/" + dir_parameters + "\/EFDC\/input\/LORP.INP";
+				std::string dirfile_input_LORP2 = "db/" + dir_parameters + "/EFDC/input/LORP.INP";
 				rename(LORP_name2.c_str(), dirfile_input_LORP2.c_str());				
 			}
 			else{
 				std::string LORP_name3 = "LORP_" + c_name.str() + "_" +n_proc.str()+ "_r.INP";
-				std::string dirfile_input_LORP3 = "db\/" + dir_parameters + "\/EFDC\/input\/LORP.INP";
+				std::string dirfile_input_LORP3 = "db/" + dir_parameters + "/EFDC/input/LORP.INP";
 				rename(LORP_name3.c_str(), dirfile_input_LORP3.c_str());				
 			}			
 			//n_proc.str("");
 			c_name.str("");		
 
-            
+			printf("%s\n", " ");	
+            printf("%s\n", " STARTING GRID GENERATION OF THE EFDC-MPI MODEL ");						
+			printf("%s\n", " ");
+            /*
             if (ISGG == 1){				
 			// Copy CELL.INP to gcell.inp 			
 				char buf_cell;
@@ -4432,26 +4525,26 @@ int main()
 				fclose(copy_cell);							
 				fclose(paste_gcell);				
 			}
-			
+			*/
 						
 			// RUN Grid_efdc
-			int F_RUN = system(".\/Grid_efdc");	
+			int F_RUN = system("./Grid_efdc");	
 											
 			
 			// Move gefdc outputs to EFDC input folder	
-            std::string dirfile_input_CELL = "db\/" + dir_parameters + "\/EFDC\/input\/CELL.INP";
-            std::string dirfile_input_DXDY = "db\/" + dir_parameters + "\/EFDC\/input\/DXDY.INP";
-            std::string dirfile_input_LXLY = "db\/" + dir_parameters + "\/EFDC\/input\/LXLY.INP";           
+            std::string dirfile_input_CELL = "db/" + dir_parameters + "/EFDC/input/CELL.INP";
+            std::string dirfile_input_DXDY = "db/" + dir_parameters + "/EFDC/input/DXDY.INP";
+            std::string dirfile_input_LXLY = "db/" + dir_parameters + "/EFDC/input/LXLY.INP";           
 					
 			rename("CELL.INP", dirfile_input_CELL.c_str());
 			rename("DXDY.INP", dirfile_input_DXDY.c_str());
 			rename("LXLY.INP", dirfile_input_LXLY.c_str());
-			
+			/*
 			if (ISGG == 1){				
-				std::string dirfile_input_GCELLMAP = "db\/" + dir_parameters + "\/EFDC\/input\/GCELLMP.INP";
+				std::string dirfile_input_GCELLMAP = "db/" + dir_parameters + "/EFDC/input/GCELLMP.INP";
 				rename("gcellmap.out", dirfile_input_GCELLMAP.c_str());
 			}
-			
+			*/
 			int RM1 = system("rm -rf grid.ixy");
 	        int RM2 = system("rm -rf grid.jxy");
 	        int RM3 = system("rm -rf grid.cord");
@@ -4479,9 +4572,9 @@ int main()
 			
 			char ch_cell;
 			FILE *copy_EFDC_cell, *paste_EFDC_celllt;
-			std::string dirfile_cell = "db\/" + dir_parameters + "\/EFDC\/input\/CELL.INP";
+			std::string dirfile_cell = "db/" + dir_parameters + "/EFDC/input/CELL.INP";
 			copy_EFDC_cell = fopen(dirfile_cell.c_str(), "r");				
-            std::string dirfile_paste_celllt = "db\/" + dir_parameters + "\/EFDC\/input\/CELLLT.INP";
+            std::string dirfile_paste_celllt = "db/" + dir_parameters + "/EFDC/input/CELLLT.INP";
 			paste_EFDC_celllt = fopen(dirfile_paste_celllt.c_str(), "w");			
 			
 			while ((ch_cell = fgetc(copy_EFDC_cell)) != EOF){				
@@ -4490,33 +4583,32 @@ int main()
 			fclose(copy_EFDC_cell);							
 			fclose(paste_EFDC_celllt);
 			
-			// EFDC Ininialization DYE, SALT and TEMP
-			double DYE_INIT = 0.00;
-			double SALT_INIT = 25.00;
-			
- 			std::string efdc_DYE_INP = "db\/" + dir_parameters + "\/EFDC\/input\/DYE.INP";
+			// EFDC Ininialization DYE, SALT and TEMP	
+		
+			if(dye_on==1){
+			printf("%s\n", " ");	
+            printf("%s\n", " GENERATING DYE INITIAL CONCENTRATION ");
+            	
+ 			std::string efdc_DYE_INP = "db/" + dir_parameters + "/EFDC/input/DYE.INP";
 			write_DYE_INP(efdc_DYE_INP.c_str(), cols, rows, nlayers,water_cells, h_mask, DYE_INIT);
-			
-			std::string efdc_SALT_INP = "db\/" + dir_parameters + "\/EFDC\/input\/SALT.INP";
+			}
+			if(salt_on==1){
+				
+			printf("%s\n", " ");	
+            printf("%s\n", " GENERATING INITIAL SALINITY");
+			std::string efdc_SALT_INP = "db/" + dir_parameters + "/EFDC/input/SALT.INP";
 			write_SALT_INP(efdc_SALT_INP.c_str(), cols, rows, nlayers,water_cells, h_mask, SALT_INIT);
-
-			std::string efdc_TEMP_INP = "db\/" + dir_parameters + "\/EFDC\/input\/TEMP.INP";
-			write_TEMP_INP(efdc_TEMP_INP.c_str(),cols,rows,nlayers,water_cells, h_mask, h_initial_condition,5.00, 28.00);
+			}
+			if(temp_on==1){
+				
+			printf("%s\n", " ");	
+            printf("%s\n", " GENERATING INITIAL TEMPERATURE");
 			
+			std::string efdc_TEMP_INP = "db/" + dir_parameters + "/EFDC/input/TEMP.INP";
+			write_TEMP_INP(efdc_TEMP_INP.c_str(),cols,rows,nlayers,water_cells, h_mask, h_initial_condition,TEMP_BOT, TEMP_SURF);
+			}
 		}				
-		
-		
-		// ***************************************************************
-		// ***************************************************************
-		printf("%s\n"," ******************************************************************** ");
-		printf("%s\n"," Two-dimensional shallow water model accelerated by GPGPU (SW2D-GPU)  ");
-		printf("%s\n"," ******************************************************************** ");
-		printf("%s\n"," Month/Year - 11/2020 ");
-		printf("%s\n"," Developer of parallel code in GPGPU: ");
-		printf("%s\n","     Tomas Carlotto         |   Code written in CUDA C/C++ ");
-		printf("%s\n"," ******************************************************************** ");
-		printf("%s\n"," ******************************************************************** ");
-		printf("%s\n", dirfile);
+						
 		// *************************************************************
 		//              Memory Allocation - CPU
 		// *************************************************************
@@ -4633,6 +4725,16 @@ int main()
 		cudaMemcpy(d_baseo, h_baseo, N*sizeof(double), cudaMemcpyHostToDevice);
 		//cudaMemcpy(d_qq, h_qq, (cont_qq)*sizeof(double), cudaMemcpyHostToDevice);
 		//cudaMemcpy(d_rain, h_rain, (cont_rain - 1)*sizeof(double), cudaMemcpyHostToDevice);
+		
+		
+		printf("%s\n", " ");	
+        printf("%s\n", " INITIALIZATION DONE!!!");	
+		printf("%s\n", " ");
+		printf("%s\n", "*****************************************************************");		
+		printf("%s\n", "             STARTING 2D CATCHMENT FLOW SIMULATION               ");
+		printf("%s\n", "*****************************************************************");
+
+
 
 		// *******************************************************************
 		// Definition of the number of blocks and threads for mesh (N cells)
@@ -4673,8 +4775,11 @@ int main()
 					h_efdc_ASER[iev][4] = h_Evapo[iev];
 					h_efdc_ASER[iev][5] = h_Rg[iev];
 				}
-				std::string efdc_ASER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/ASER.INP";
-				write_efdc_ASER(efdc_ASER_filepath.c_str(), h_efdc_ASER, dtrain, efdc_basetime, efdc_ntimes);				
+				std::string efdc_ASER_filepath = "db/" + dir_parameters + "/EFDC/input/ASER.INP";
+				write_efdc_ASER(efdc_ASER_filepath.c_str(), h_efdc_ASER,\
+				IASWRAD, REVC, RCHC, SWRATNF, SWRATNS,\
+				FSWRATF, DABEDT, TBEDIT, HTBED1, HTBED2,\
+				dtrain, efdc_basetime, efdc_ntimes);				
 			}
 			
 		}				
@@ -4793,13 +4898,13 @@ int main()
 					cudaMemcpy(h_h, d_h, N*sizeof(double), cudaMemcpyDeviceToHost);
 
 					if (tq==0){//(out0==0){
-						couple_BC_efdc(pressure_OpenBC, volumeFlow_BC, cols, rows, dx, dy, nqsij, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, h_mask, h_initial_condition, h_vva, h_uua, tq, 0.0000);
+						couple_BC_efdc(volumeFlow_BC, cols, rows, dx, dy, nqsij, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, h_mask, h_initial_condition, h_vva, h_uua, tq, 0.0000);
 						nqser = nqsij[0];
-						std::string efdc_QSER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/QSER.INP";
+						std::string efdc_QSER_filepath = "db/" + dir_parameters + "/EFDC/input/QSER.INP";
 						write_efdc_QSER(efdc_QSER_filepath.c_str(), QSER_type, nlayers, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, efdc_basetime, tq);
 					}
 					else{
-						couple_BC_efdc(pressure_OpenBC, volumeFlow_BC, cols, rows, dx, dy, nqsij, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, h_mask, h_h, h_vva, h_uua, tq , efdc_time);
+						couple_BC_efdc(volumeFlow_BC, cols, rows, dx, dy, nqsij, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, h_mask, h_h, h_vva, h_uua, tq , efdc_time);
 						nqser = nqsij[0];
 					}
 
@@ -4809,172 +4914,47 @@ int main()
 					}	
 
 					
-					//couple_BC_efdc(pressure_OpenBC, volumeFlow_BC, cols, rows, dx, dy, nqsij, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, h_mask, h_h, h_vn, h_um, tq+1, efdc_time);
+					//couple_BC_efdc(volumeFlow_BC, cols, rows, dx, dy, nqsij, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, h_mask, h_h, h_vn, h_um, tq+1, efdc_time);
 					//nqser = nqsij[0];
 
 					//}
+					
+					// Volumetric BC: EFDC.INP write
+					if (tq == 0){
+						std::string efdc_filepath = "db/" + dir_parameters + "/EFDC/input/EFDC.INP";
+						write_efdc_CONFIG(efdc_filepath.c_str(), nqsij, nqser, north_bc, south_bc, east_bc, west_bc, nlayers, \
+							cols, rows, water_cells, TCON, TBEGIN, TREF, NTC, NTSPTC, NTCPP, NTCVB,\
+							ISPPH, NPPPH, ISRPPH, IPPHXY, ISVPH, NPVPH, ISRVPH, IVPHXY,\
+							ISTMSR,MLTMSR,NBTMSR,NSTMSR,NWTMSR,NTSSTSP,TCTMSR,\
+							nts_out, LTS, NTSSSS, MTSP, MTSC, MTSA, MTSUE, MTSUT, MTSU,\
+							ZBRADJ,ZBRCVRT,HMIN,HADJ,HCVRT,HDRY,HWET,BELADJ,BELCVRT,\
+							NWSER,NASER,dx,dy,dye_on,salt_on,temp_on,temp_opt);
 
-					if (pressure_OpenBC == 1){
-						int bn, bs, be, bw, ig, ig1, ef;
-
-						if (tq == 0){							
-
-							FILE *north_bc_efdcOut;
-							std::string efdc_north_bc = "db\/" + dir_parameters + "\/SW2D\/output\/efdc_north_bc.txt";
-							north_bc_efdcOut = fopen(efdc_north_bc.c_str(), "w");
-
-							FILE *south_bc_efdcOut;
-							std::string efdc_south_bc = "db\/" + dir_parameters + "\/SW2D\/output\/efdc_south_bc.txt";
-							south_bc_efdcOut = fopen(efdc_south_bc.c_str(), "w");
-
-							FILE *east_bc_efdcOut;
-							std::string efdc_east_bc = "db\/" + dir_parameters + "\/SW2D\/output\/efdc_east_bc.txt";
-							east_bc_efdcOut = fopen(efdc_east_bc.c_str(), "w");
-
-							FILE *west_bc_efdcOut;
-							std::string efdc_west_bc = "db\/" + dir_parameters + "\/SW2D\/output\/efdc_west_bc.txt";
-							west_bc_efdcOut = fopen(efdc_west_bc.c_str(), "w");
-
-							int npsers = 0;
-							bn = 0;
-							while (north_bc[bn][0] != 0){
-								npsers = npsers + 1;
-								fprintf(north_bc_efdcOut, "%d ", north_bc[bn][0]);
-								fprintf(north_bc_efdcOut, "%d ", north_bc[bn][1]);
-								fprintf(north_bc_efdcOut, "%d ", 0);
-								fprintf(north_bc_efdcOut, "%d ", 0);
-								fprintf(north_bc_efdcOut, "%d\n", npsers);
-								bn = bn + 1;
-							}
-							bs = 0;
-							while (south_bc[bs][0] != 0){
-								npsers = npsers + 1;
-								fprintf(south_bc_efdcOut, "%d ", south_bc[bs][0]);
-								fprintf(south_bc_efdcOut, "%d ", south_bc[bs][1]);
-								fprintf(south_bc_efdcOut, "%d ", 0);
-								fprintf(south_bc_efdcOut, "%d ", 0);
-								fprintf(south_bc_efdcOut, "%d\n", npsers);
-								bs = bs + 1;
-							}
-							be = 0;
-							while (east_bc[be][0] != 0){
-								npsers = npsers + 1;
-								fprintf(east_bc_efdcOut, "%d ", east_bc[be][0]);
-								fprintf(east_bc_efdcOut, "%d ", east_bc[be][1]);
-								fprintf(east_bc_efdcOut, "%d ", 0);
-								fprintf(east_bc_efdcOut, "%d ", 0);
-								fprintf(east_bc_efdcOut, "%d\n", npsers);
-								be = be + 1;
-							}
-							bw = 0;
-							while (west_bc[bw][0] != 0){
-								npsers = npsers + 1;
-								fprintf(west_bc_efdcOut, "%d ", west_bc[bw][0]);
-								fprintf(west_bc_efdcOut, "%d ", west_bc[bw][1]);
-								fprintf(west_bc_efdcOut, "%d ", 0);
-								fprintf(west_bc_efdcOut, "%d ", 0);
-								fprintf(west_bc_efdcOut, "%d\n", npsers);
-								bw = bw + 1;
-							}
-
-							fclose(north_bc_efdcOut);
-							fclose(south_bc_efdcOut);
-							fclose(east_bc_efdcOut);
-							fclose(west_bc_efdcOut);
-						}
-
-						FILE *wl_efdcOut;
-						std::string efdc_wl = "db\/" + dir_parameters + "\/SW2D\/output\/efdc_wl.txt";
-						wl_efdcOut = fopen(efdc_wl.c_str(), "w");
-						int edg = 0;
-						// North
-						for (ig = 0; ig < north_bc[bn - 1][2]; ig++){
-							edg = edg + 1;
-							fprintf(wl_efdcOut, "%d %lf %d %d %d %s%d\n", tq + 1, efdc_basetime, 0, 1, 0, " ' *** North_edge_", edg);
-
-							for (ig1 = 0; ig1 < tq + 1; ig1++){
-								fprintf(wl_efdcOut, "%lf ", (north_val[ig1][0] - north_val[0][0]));
-								fprintf(wl_efdcOut, "%lf\n", north_val[ig1][ig + 1]);
-							}
-
-						}
-
-						// South
-						for (ig = 0; ig < south_bc[bs - 1][2]; ig++){
-							edg = edg + 1;
-							fprintf(wl_efdcOut, "%d %lf %d %d %d %s%d\n", tq + 1, efdc_basetime, 0, 1, 0, " ' *** South_edge_", edg);
-
-							for (ig1 = 0; ig1 < tq + 1; ig1++){
-								fprintf(wl_efdcOut, "%lf ", (south_val[ig1][0] - south_val[0][0]));
-								fprintf(wl_efdcOut, "%lf\n", south_val[ig1][ig + 1]);
-							}
-
-						}
-
-						// East
-						for (ig = 0; ig < east_bc[be - 1][2]; ig++){
-							edg = edg + 1;
-							fprintf(wl_efdcOut, "%d %lf %d %d %d %s%d\n", tq + 1, efdc_basetime, 0, 1, 0, " ' *** East_edge_", edg);
-
-							for (ig1 = 0; ig1 < tq + 1; ig1++){
-								fprintf(wl_efdcOut, "%lf ", (east_val[ig1][0] - east_val[0][0]));
-								fprintf(wl_efdcOut, "%lf\n", east_val[ig1][ig + 1]);
-							}
-
-						}
-
-						// West
-						for (ig = 0; ig < west_bc[bw - 1][2]; ig++){
-							edg = edg + 1;
-							fprintf(wl_efdcOut, "%d %lf %d %d %d %s%d\n", tq + 1, efdc_basetime, 0, 1, 0, " ' *** West_edge_", edg);
-
-							for (ig1 = 0; ig1 < tq + 1; ig1++){
-								fprintf(wl_efdcOut, "%lf ", (west_val[ig1][0] - west_val[0][0]));
-								fprintf(wl_efdcOut, "%lf\n", west_val[ig1][ig + 1]);
-							}
-
-						}
-
-						fclose(wl_efdcOut);
+						// SHOW.INP write
+						std::string efdc_SHOW_filepath = "db/" + dir_parameters + "/EFDC/input/SHOW.INP";
+						write_efdc_SHOW(efdc_SHOW_filepath.c_str(),NSTYPE,NSHOWR,ISHOWC,JSHOWC,NSHFREQ,ZSSMIN,ZSSMAX,SSALMAX);
 					}
 					else{
-						// Volumetric BC: EFDC.INP write
-						if (tq == 0){
-							std::string efdc_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/EFDC.INP";
-							write_efdc_CONFIG(efdc_filepath.c_str(), nqsij, nqser, north_bc, south_bc, east_bc, west_bc, nlayers, \
-								cols, rows, water_cells, TCON, TBEGIN, TREF, NTC, NTSPTC, NTCPP, NTCVB,\
-								ISPPH, NPPPH, ISRPPH, IPPHXY, ISVPH, NPVPH, ISRVPH, IVPHXY,\
-								ISTMSR,MLTMSR,NBTMSR,NSTMSR,NWTMSR,NTSSTSP,TCTMSR,\
-								nts_out, LTS, NTSSSS, MTSP, MTSC, MTSA, MTSUE, MTSUT, MTSU,\
-								ZBRADJ,ZBRCVRT,HMIN,HADJ,HCVRT,HDRY,HWET,BELADJ,BELCVRT,\
-								NWSER,NASER,dx,dy);
-
-							// SHOW.INP write
-							std::string efdc_SHOW_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/SHOW.INP";
-							write_efdc_SHOW(efdc_SHOW_filepath.c_str(),NSTYPE,NSHOWR,ISHOWC,JSHOWC,NSHFREQ,ZSSMIN,ZSSMAX,SSALMAX);
-						}
-						else{
-							std::string efdc_QSER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/QSER.INP";
-							write_efdc_QSER(efdc_QSER_filepath.c_str(), QSER_type, nlayers, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, efdc_basetime, tq );														
-						}
-						//
+						std::string efdc_QSER_filepath = "db/" + dir_parameters + "/EFDC/input/QSER.INP";
+						write_efdc_QSER(efdc_QSER_filepath.c_str(), QSER_type, nlayers, north_bc, south_bc, east_bc, west_bc, north_val, south_val, east_val, west_val, efdc_basetime, tq );														
 					}
+					
 					
 					//if(tq == 3){
 				    // RUN EFDC-MPI model
-			        //    std::string EFDCrun = "mpirun -wdir db\/" + dir_parameters + "\/EFDC\/input -np " + n_proc.str() + " ./EFDC &";
+			        //    std::string EFDCrun = "mpirun -wdir db/" + dir_parameters + "/EFDC/input -np " + n_proc.str() + " ./EFDC &";
 			        //   int efdc_RUN = system(EFDCrun.c_str());
 		            //    n_proc.str("");	
 						
 					//	int P_2 = system("P2 = $!"); // ID EFDC-MPI process 
 						
-					//}
-					
+					//}					
 					
 				}
-				
+							
+							
 				FILE *Res_Output;
-				dirRes_Output = "db\/" + dir_parameters + "\/SW2D\/output\/Results_" + tempo + ".vtk";
+				dirRes_Output = "db/" + dir_parameters + "/SW2D/output/Results_" + tempo + ".vtk";
 				Res_Output = fopen(dirRes_Output.c_str(), "w");				
 
 				// output .vtk format
@@ -5093,20 +5073,29 @@ int main()
         
 		if (efdc==1){
 			
-		// DYE time series			
-			std::string efdc_DSER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/DSER.INP";
-			write_efdc_DSER(efdc_DSER_filepath.c_str(), 0, nlayers, north_bc, south_bc, east_bc, west_bc,north_val,10.0, efdc_basetime,tq);
-							
+		// DYE time series
+        if(dye_on==1){		
+			std::string efdc_DSER_filepath = "db/" + dir_parameters + "/EFDC/input/DSER.INP";
+			write_efdc_DSER(efdc_DSER_filepath.c_str(), 0, nlayers, north_bc, south_bc, east_bc, west_bc,north_val,DYE_IN, efdc_basetime,tq);
+		}					
 		// Temperature time series	
-			std::string efdc_TSER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/TSER.INP";
+		if(temp_on==1){
+			std::string efdc_TSER_filepath = "db/" + dir_parameters + "/EFDC/input/TSER.INP";
 			write_efdc_TSER(efdc_TSER_filepath.c_str(), 0, nlayers, north_bc, south_bc, east_bc, west_bc,north_val,h_T, efdc_basetime,tq);
-		
+		}
 		// Salinity time series
-			std::string efdc_SSER_filepath = "db\/" + dir_parameters + "\/EFDC\/input\/SSER.INP";
-			write_efdc_SSER(efdc_SSER_filepath.c_str(), 0, nlayers, north_bc, south_bc, east_bc, west_bc,north_val,15.0, efdc_basetime,tq);
-			
+		if(salt_on==1){
+			std::string efdc_SSER_filepath = "db/" + dir_parameters + "/EFDC/input/SSER.INP";
+			write_efdc_SSER(efdc_SSER_filepath.c_str(), 0, nlayers, north_bc, south_bc, east_bc, west_bc,north_val,SALT_IN, efdc_basetime,tq);
+		}	
+		printf("%s\n", " ");
+		printf("%s\n", "*****************************************************************");		
+		printf("%s\n", "        STARTING EFDC - LAKE HYDRODYNAMIC SIMULATION            ");
+		printf("%s\n", "*****************************************************************");	
+		printf("%s\n", " ");
+		
 		// RUN EFDC-MPI model
-			std::string EFDCrun = "mpirun -wdir db\/" + dir_parameters + "\/EFDC\/input -np " + n_proc.str() + " ./EFDC";
+			std::string EFDCrun = "mpirun -wdir db/" + dir_parameters + "/EFDC/input -np " + n_proc.str() + " ./EFDC";
 			int efdc_RUN = system(EFDCrun.c_str());
 			n_proc.str("");	
 			
@@ -5124,7 +5113,7 @@ int main()
 
 		// Save Times
 		FILE *TimeOutput;
-		std::string dirTimeOutput = "db\/" + dir_parameters + "\/SW2D\/output\/TimeSimu_" + tempo + ".txt";
+		std::string dirTimeOutput = "db/" + dir_parameters + "/SW2D/output/TimeSimu_" + tempo + ".txt";
 		TimeOutput = fopen(dirTimeOutput.c_str(), "w");
 		fprintf(TimeOutput, " %lf\n", duration);
 		fclose(TimeOutput);
