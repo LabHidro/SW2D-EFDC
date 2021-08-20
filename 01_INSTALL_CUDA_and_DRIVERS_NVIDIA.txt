@@ -1,0 +1,48 @@
+#INSTALLING NVIDIA LINUX DRIVERS
+#--> Check the graphics device
+
+sudo lshw -C display
+
+#--> Searching for nvidia drivers using the apt command 
+
+apt search nvidia-driver
+
+#--> Installing updated drivers (install the latest version)
+
+sudo apt install nvidia-driver-450-server
+
+#--> Restart Linux 
+
+sudo reboot
+
+#CHECKING DRIVERS INSTALLATION
+#--> GPU and running process information:
+
+nvidia-smi
+
+#CUDA TOOLKIT INSTALLATION
+#--> Make sure you have a compatible version of Linux
+
+uname -m && cat /etc/*release
+
+#--> The kernel version your system is running can be found by running the following command:
+
+uname -r
+
+#--> Kernel headers and development packages for the running kernel can be installed with:
+
+sudo apt-get install linux-headers-$(uname -r)
+
+#--> Downloading and installing the CUDA Toolkit (ubuntu 20.04)
+#1- Use the official CUDA toolkit installation site: https://developer.nvidia.com/cuda-downloads?target_os=Linux&target_arch=x86_64&Distribution=Ubuntu&target_version=20.04&target_type=deb_local
+#2- Copy and run the following commands (or CUDA toolkit in the latest var):
+
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2004/x86_64/cuda-ubuntu2004.pin
+sudo mv cuda-ubuntu2004.pin /etc/apt/preferences.d/cuda-repository-pin-600
+wget https://developer.download.nvidia.com/compute/cuda/11.4.1/local_installers/cuda-repo-ubuntu2004-11-4-local_11.4.1-470.57.02-1_amd64.deb
+sudo dpkg -i cuda-repo-ubuntu2004-11-4-local_11.4.1-470.57.02-1_amd64.deb
+sudo apt-key add /var/cuda-repo-ubuntu2004-11-4-local/7fa2af80.pub
+sudo apt-get update
+sudo apt-get -y install cuda
+
+#NVIDIA LINUX DRIVERS AND CUDA TOOLKIT ARE INSTALLED!!!
