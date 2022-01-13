@@ -18,3 +18,5 @@ make
 5 - Modify the files provided in the example, according to the needs of your study.
 
 For any queries, please contact us by email: thomas.carl@hotmail.com
+
+Any collaboration will be highly appreciated!
