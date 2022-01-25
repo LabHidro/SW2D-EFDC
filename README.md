@@ -1,6 +1,3 @@
-# SW2D-EFDC
-A coupled 2D-3D catchment-lake model with a parallel processing framework
-
 Developer: Tomas Carlotto
 
 To use the SW2D-EFDC model, perform the following procedures:
