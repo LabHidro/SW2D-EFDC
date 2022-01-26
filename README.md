@@ -29,8 +29,8 @@ Example: Pond Breaking - Conceição Lagoon
 
 Coupled model:
 
-![](Peri_Lake_Experimental_Catchment.gif) 
+![](PondBreaking_ConceicaoLagoon.gif) 
 
 Hydrodynamic:
 
-![](dam_break.gif)
+![](PondBreaking_sw2d-EFDC.gif)
