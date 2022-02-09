@@ -31,6 +31,6 @@ Coupled model:
 
 ![](PondBreaking_ConceicaoLagoon.gif) 
 
-Hydrodynamic - Tracer simulation:
+Hydrodynamic - Tracer simulation - concentration (mg/L):
 
 ![](PondBreaking_sw2d-EFDC.gif)
