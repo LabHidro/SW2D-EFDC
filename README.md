@@ -28,7 +28,11 @@ For any queries, please contact us by email: thomas.carl@hotmail.com
 
 Any collaboration will be highly appreciated!
 
-Example: Pond Breaking - Conceição Lagoon
+Example 1: Peri Lake Catchment
+
+![](Peri_Lake_Catchment.gif) 
+
+Example 2: Pond Breaking - Conceição Lagoon
 
 Coupled model:
 
