@@ -13,7 +13,8 @@ To use the SW2D-EFDC model, perform the following procedures:
  
 1 - Install the prerequisites listed in the files 01_INSTALL_CUDA_and_DRIVERS_NVIDIA.txt and 02_EFDC_DEPENDENCIES.txt
 
-2 - Enter the folder where the SW2D-EFDC.cu file is
+2 - Enter the folder where the SW2D-EFDC.cu file is located
+
 3 - In the command window of your Linux environment, make the compilation using the command:
 make
 
