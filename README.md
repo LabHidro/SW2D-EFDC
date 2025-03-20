@@ -1,6 +1,6 @@
 
 # A 2D-3D COUPLED CATCHMENT-LAKE MODEL FOR MULTI-CORE AND GPU ARCHITECTURES
-
+https://doi.org/10.1590/2318-0331.282320220100
 Developer: Tomas Carlotto
 
     Prerequisites for using parallel code:
